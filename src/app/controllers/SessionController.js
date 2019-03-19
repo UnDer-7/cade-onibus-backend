@@ -16,7 +16,7 @@ class SessionController {
         return res.status(400).json('Invalid Password')
       }
 
-      return res.status(200).json({ user, token: User.createToken(user) })
+      return res.status(200).json({ token: User.createToken(user) })
     } catch (e) {
       console.trace(e)
       res.status(500).json(e)
