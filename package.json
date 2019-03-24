@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "startlocal": "nodemon src/index.js",
-    "test": "eslint ./src"
+    "lint": "eslint ./src"
   },
   "keywords": [],
   "author": "",
