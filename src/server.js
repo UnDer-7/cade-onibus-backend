@@ -9,12 +9,10 @@ const Youch = require('youch')
 const cors = require('cors')
 const mongoose = require('mongoose')
 
-const color = require('./consoleColors')
-
 class App {
   constructor () {
     this.express = express()
-  
+
     this.database()
     this.setCors()
     this.middleware()
@@ -30,8 +28,8 @@ class App {
     mongoose.set('debug', true)
   }
 
-  setCors() {
-    this.express.use(cors());
+  setCors () {
+    this.express.use(cors())
   }
 
   middleware () {
