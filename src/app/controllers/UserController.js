@@ -19,18 +19,20 @@ class UserController {
 
   async updateUser (req, res) {
     try {
-      const { email, password } = req.body
-      const user = await User.findById(req.params.id)
+      const user = await User.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true })
 
-      if (!user) {
-        return res.status(400).json('User not found')
-      }
+      const userRes = Object.assign({}, {
+        _id: user._id,
+        email: user.email,
+        name: user.name,
+        onibus: user.onibus
+      })
 
-      user.email = email
-      user.password = password
-      const userRes = await user.save()
       return res.status(200).json(userRes)
     } catch (e) {
+      if (e.codeName === 'DuplicateKey') {
+        return res.status(400).json('User already exists')
+      }
       console.trace(e)
       return res.status(500).json(e)
     }
@@ -58,7 +60,14 @@ class UserController {
         return res.status(404).json({ error: 'User not found' })
       }
 
-      return res.status(200).json(user)
+      const userRes = Object.assign({}, {
+        _id: user._id,
+        email: user.email,
+        name: user.name,
+        onibus: user.onibus
+      })
+
+      return res.status(200).json(userRes)
     } catch (e) {
       console.trace(e)
       res.status(500).json(e)
