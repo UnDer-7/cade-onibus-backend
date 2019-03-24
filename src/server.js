@@ -24,7 +24,8 @@ class App {
     try {
       mongoose.connect(process.env.DB_URL, {
         useCreateIndex: true,
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        dbName: process.env.DB_NAME
       })
       mongoose.set('debug', true)
     } catch (e) {
