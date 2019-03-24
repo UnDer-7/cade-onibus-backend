@@ -8,14 +8,14 @@ const routes = express.Router()
 const controllers = require('./app/controllers')
 const validators = require('./app/validators')
 
-const authMiddleware = require('./app/middlewares/auth')
+// const authMiddleware = require('./app/middlewares/auth')
 
 const rootUrl = '/api'
 
 routes.post(`${rootUrl}/login`, validate(validators.LoginValidator), handle(controllers.SessionController.login))
 routes.post(`${rootUrl}/users`, validate(validators.UserValidator), handle(controllers.UserController.createUser))
 
-routes.use(authMiddleware)
+// routes.use(authMiddleware)
 
 /**
  *  USER'S ROUTES
