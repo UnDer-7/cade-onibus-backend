@@ -21,11 +21,15 @@ class App {
   }
 
   database () {
-    mongoose.connect(process.env.DB_URL, {
-      useCreateIndex: true,
-      useNewUrlParser: true
-    })
-    mongoose.set('debug', true)
+    try {
+      mongoose.connect(process.env.DB_URL, {
+        useCreateIndex: true,
+        useNewUrlParser: true
+      })
+      mongoose.set('debug', true)
+    } catch (e) {
+      console.trace(e)
+    }
   }
 
   setCors () {
