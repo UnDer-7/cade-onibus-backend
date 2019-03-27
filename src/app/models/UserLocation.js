@@ -6,15 +6,15 @@ const paginate = require('mongoose-paginate')
 const UserLocationSchema = new mongoose.Schema({
   numero: {
     type: String,
-    required: true,
+    required: true
   },
   sequencial: {
     type: Number,
-    required: true,
+    required: true
   },
   cords: {
     type: Object,
-    required: true,
+    required: true
   },
   createdAt: {
     type: Date,
