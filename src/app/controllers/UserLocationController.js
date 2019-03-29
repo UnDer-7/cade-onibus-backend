@@ -34,7 +34,7 @@ class UserLocationController {
         limit: req.query.page || 25,
         sort: req.query.sort || '-createdAt'
       })
-      res.status(200).json({ userlocation })
+      res.status(200).json(userlocation)
     } catch (e) {
       console.trace(e)
       return res.status(500).json({ error: e })
