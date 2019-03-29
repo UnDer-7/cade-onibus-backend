@@ -12,6 +12,10 @@ const UserLocationSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  hora: {
+    type: Date,
+    required: true
+  },
   cords: {
     type: Object,
     required: true
