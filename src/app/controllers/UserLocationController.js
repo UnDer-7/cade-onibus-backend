@@ -56,6 +56,21 @@ class UserLocationController {
     }
   }
 
+  async getUserByNumero (req, res) {
+    try {
+      const userLocation = await UserLocation.find({ numero: req.params.linha })
+
+      if (userLocation.length < 1) {
+        return res.status(404).json('bus not found')
+      }
+
+      res.status(200).json(userLocation)
+    } catch (e) {
+      console.trace(e)
+      res.status(500).json({ error: e })
+    }
+  }
+
   async deleteUserLocation (req, res) {
     try {
       const userlocation = await UserLocation.findByIdAndDelete(req.params.id)

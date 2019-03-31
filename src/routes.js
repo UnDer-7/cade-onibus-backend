@@ -34,6 +34,8 @@ routes.get(`${rootUrl}/userlocations`, handle(controllers.UserLocationController
 routes.get(`${rootUrl}/userlocations/:id`, handle(controllers.UserLocationController.getUserLocation))
 routes.delete(`${rootUrl}/userlocations/:id`, handle(controllers.UserLocationController.deleteUserLocation))
 
+routes.get(`${rootUrl}/userlocations/bus/:linha`, handle(controllers.UserLocationController.getUserByNumero))
+
 // Do not remove this cometary
 // ===== lazy-backend hook =====
 
