@@ -25,6 +25,17 @@ routes.get(`${rootUrl}/users`, handle(controllers.UserController.getAllUser))
 routes.get(`${rootUrl}/users/:id`, handle(controllers.UserController.getUser))
 routes.delete(`${rootUrl}/users/:id`, handle(controllers.UserController.deleteUser))
 
+/**
+ *  USERLOCATION'S ROUTES
+ */
+routes.post(`${rootUrl}/userlocations`, validate(validators.UserLocationValidator), handle(controllers.UserLocationController.createUserLocation))
+routes.put(`${rootUrl}/userlocations/:id`, validate(validators.UserLocationValidator), handle(controllers.UserLocationController.updateUserLocation))
+routes.get(`${rootUrl}/userlocations`, handle(controllers.UserLocationController.getAllUserLocation))
+routes.get(`${rootUrl}/userlocations/:id`, handle(controllers.UserLocationController.getUserLocation))
+routes.delete(`${rootUrl}/userlocations/:id`, handle(controllers.UserLocationController.deleteUserLocation))
+
+routes.get(`${rootUrl}/userlocations/bus/:linha`, handle(controllers.UserLocationController.getUserByNumero))
+
 // Do not remove this cometary
 // ===== lazy-backend hook =====
 

@@ -8,7 +8,7 @@ branches:
   only:
     - development
 script:
-  - npm rum lint
+  - npm run lint
 deploy:
   provider: heroku
   api_key:
