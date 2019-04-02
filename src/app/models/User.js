@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     minlength: [5, 'Minimum 5 characters']
   },
+  moedas: {
+    type: Number,
+    required: true
+  },
   password: {
     type: String,
     required: true,

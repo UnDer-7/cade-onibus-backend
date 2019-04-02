@@ -64,6 +64,7 @@ class UserController {
         _id: user._id,
         email: user.email,
         name: user.name,
+        moedas: user.moedas,
         onibus: user.onibus
       })
 
