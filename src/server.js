@@ -8,6 +8,7 @@ const logger = require('morgan')
 const Youch = require('youch')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const schedule = require('node-schedule')
 
 class App {
   constructor () {
@@ -45,6 +46,9 @@ class App {
 
   routes () {
     this.express.use(require('./routes'))
+  }
+
+  cleanUserLocation () {
   }
 
   exception () {
