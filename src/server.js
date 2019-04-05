@@ -49,7 +49,6 @@ class App {
     this.express.use(require('./routes'))
   }
 
-
   exception () {
     this.express.use(async (err, req, res, next) => {
       if (err instanceof validate.ValidationError) {
