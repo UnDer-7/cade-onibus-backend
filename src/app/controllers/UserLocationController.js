@@ -1,6 +1,7 @@
 'use strict'
 
 const UserLocation = require('../models/UserLocation')
+const schedule = require('node-schedule')
 
 class UserLocationController {
   async createUserLocation (req, res) {
@@ -84,6 +85,35 @@ class UserLocationController {
       console.trace(e)
       res.status(500).json({ error: e })
     }
+  }
+
+  /**
+   * Procura por registros antigos (10min sem atualizações)
+   * Task é rodada de 10 em 10 min
+   */
+  deleteOldUserLocation () {
+    let rule = new schedule.RecurrenceRule()
+    rule.minute = new schedule.Range(0, 59, 10)
+
+    schedule.scheduleJob(rule, async fireDate => {
+      console.log('Running task at: ', fireDate)
+      const currentDate = new Date()
+      try {
+        const userLocation = await UserLocation.find()
+        const busToDelete = userLocation.filter(item => {
+          const diff = (currentDate - item.hora) / 1000
+          const seconds = Math.floor(diff)
+          if (seconds > 600) {
+            return item
+          }
+        })
+        busToDelete.forEach(async item => {
+          await UserLocation.findByIdAndDelete(item._id)
+        })
+      } catch (e) {
+        throw Error(`Unable to delete old registers from UserLocation\n${e}`)
+      }
+    })
   }
 }
 

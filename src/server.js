@@ -8,7 +8,7 @@ const logger = require('morgan')
 const Youch = require('youch')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const schedule = require('node-schedule')
+const { deleteOldUserLocation } = require('./app/controllers/UserLocationController')
 
 class App {
   constructor () {
@@ -19,6 +19,7 @@ class App {
     this.middleware()
     this.routes()
     this.exception()
+    deleteOldUserLocation()
   }
 
   database () {
@@ -48,8 +49,6 @@ class App {
     this.express.use(require('./routes'))
   }
 
-  cleanUserLocation () {
-  }
 
   exception () {
     this.express.use(async (err, req, res, next) => {
@@ -65,6 +64,12 @@ class App {
       return res.status(err.status || 500).json({ error: 'Internal Server Error' })
     })
   }
+
+  // cleanUserLocation () {
+  //   schedule.scheduleJob('20 * * * * *', () => {
+  //     console.log('TA FUNFANDO!')
+  //   })
+  // }
 }
 
 module.exports = new App().express
