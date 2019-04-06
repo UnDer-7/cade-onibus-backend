@@ -1,16 +1,12 @@
 {
-  "name": "cade-onibus",
-  "version": "1.0.0",
-  "description": "",
+  "name": "cade-onibus-backend",
+  "version": "2.0.7",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
     "startlocal": "nodemon src/index.js",
     "lint": "eslint ./src"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.2",
     "cors": "^2.8.5",
@@ -35,5 +31,50 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "nodemon": "^1.18.8"
-  }
+  },
+  "description": "Projeto desenvolvido para a disciplina Projeto Integrado III do curso de Sistemas de Informação do UniPROJEÇÃO",
+  "homepage": "https://cade-onibus-2.firebaseapp.com",
+  "contributors": [
+    {
+      "name": "Mateus Gomes",
+      "email": "mateus7532@gmail.com",
+      "url": "https://github.com/UnDer-7"
+    },
+    {
+      "name": "Lucas Veiga",
+      "email": "lucasveiga09@gmail.com",
+      "url": "https://github.com/lucas-veiga"
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/UnDer-7/cade-onibus-backend",
+    "type": "Git"
+  },
+  "license": "SEE LICENSE IN LICENSE.md",
+  "keywords": [
+    "UniPROJEÇÃO",
+    "UniPROJECAO",
+    "PROJEÇÃO",
+    "PROJECAO",
+    "UnDer-7",
+    "Mateus Gomes",
+    "Lucas Veiga",
+    "Brasilia",
+    "DF",
+    "Distrito Federal",
+    "Sobradinho",
+    "Sobradinho II",
+    "Sobradinho 2",
+    "Onibus",
+    "Bus",
+    "DFTrans",
+    "DF-Trans",
+    "DF Trans",
+    "Google Maps",
+    "Maps",
+    "Mapa",
+    "Node",
+    "NodeJS",
+    "Node JS"
+  ]
 }

@@ -88,7 +88,7 @@ class UserLocationController {
   }
 
   /**
-   * Procura por registros antigos (10min sem atualizações)
+   * Procura por registros antigos (10min sem atualizações) e apaga eles.
    * Task é rodada de 10 em 10 min
    */
   deleteOldUserLocation () {

@@ -23,7 +23,10 @@ module.exports = async (req, res, next) => {
 
     return next()
   } catch (e) {
-    console.trace(e)
-    res.status(500).json({ error: e })
+    if (e.name === 'JsonWebTokenError' || e.name === 'SyntaxError') {
+      return res.status(401).json({ error: 'invalid token' })
+    }
+    console.trace(e.name)
+    res.status(500).json(e)
   }
 }
