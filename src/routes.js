@@ -13,6 +13,7 @@ const authMiddleware = require('./app/middlewares/auth')
 const rootUrl = '/api'
 
 routes.post(`${rootUrl}/login`, validate(validators.LoginValidator), handle(controllers.SessionController.login))
+routes.post(`${rootUrl}/login/google`, validate(validators.LoginValidator), handle(controllers.SessionController.loginWithGoogle))
 routes.post(`${rootUrl}/users`, validate(validators.UserValidator), handle(controllers.UserController.createUser))
 
 routes.use(authMiddleware)
