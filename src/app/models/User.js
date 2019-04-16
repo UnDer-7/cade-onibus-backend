@@ -62,7 +62,7 @@ UserSchema.statics = {
     })
 
     return jwt.sign(user, process.env.APP_SECRET, {
-      expiresIn: '1h', algorithm: 'HS512'
+      expiresIn: '10 days', algorithm: 'HS512'
     })
   }
 }
