@@ -26,6 +26,7 @@ routes.get(`${rootUrl}/users`, handle(controllers.UserController.getAllUser))
 routes.get(`${rootUrl}/users/:id`, handle(controllers.UserController.getUser))
 routes.delete(`${rootUrl}/users/:id`, handle(controllers.UserController.deleteUser))
 
+routes.post(`${rootUrl}/users/time-shared`, handle(controllers.UserController.timeShared))
 /**
  *  USERLOCATION'S ROUTES
  */

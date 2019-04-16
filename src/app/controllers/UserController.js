@@ -89,6 +89,37 @@ class UserController {
       res.status(500).json(e)
     }
   }
+
+  async timeShared (req, res) {
+    const { start, end, _id } = req.body
+    const diff = calTimeDiff(start, end)
+
+    const user = await User.findById(_id)
+    user.moedas += diff
+
+    const userUpdated = await user.save()
+
+    const moedas = {
+      made: diff,
+      have: userUpdated.moedas
+    }
+
+    res.status(200).json(moedas)
+  }
+}
+
+/**
+ * Return the time diference in minutes
+ * @param start - Start Date
+ * @param end - End Date
+ */
+const calTimeDiff = (start, end) => {
+  const startDate = new Date(start)
+  const endDate = new Date(end)
+
+  const milliseconds = Math.abs(endDate - startDate)
+  const minutes = milliseconds / 60000
+  return Math.floor(minutes)
 }
 
 module.exports = new UserController()
