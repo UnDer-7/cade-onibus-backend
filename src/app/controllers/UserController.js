@@ -73,15 +73,9 @@ class UserController {
         return res.status(404).json({ error: 'User not found' })
       }
 
-      const userRes = Object.assign({}, {
-        _id: user._id,
-        email: user.email,
-        name: user.name,
-        moedas: user.moedas,
-        onibus: user.onibus
-      })
+      delete user.password
 
-      return res.status(200).json(userRes)
+      return res.status(200).json(user)
     } catch (e) {
       console.trace(e)
       res.status(500).json(e)
