@@ -30,6 +30,9 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     minlength: [5, 'Minimum 5 characters']
   },
+  pacote: {
+    type: Object
+  },
   onibus: {
     type: [Object]
   },

@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 'use strict'
 
 const User = require('../models/User')
@@ -18,17 +19,29 @@ class UserController {
   }
 
   async updateUser (req, res) {
+    let user = req.body
     try {
-      const user = await User.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true })
+      let pricing
+      switch (req.body.pacote.quantosDias) {
+        case 3:
+          pricing = 10
+          break
+        case 5:
+          pricing = 15
+          break
+        case 7:
+          pricing = 18
+          break
+        default:
+          break
+      }
 
-      const userRes = Object.assign({}, {
-        _id: user._id,
-        email: user.email,
-        name: user.name,
-        onibus: user.onibus
-      })
+      user.moedas -= pricing
 
-      return res.status(200).json(userRes)
+      const userUpdated = await User.findOneAndUpdate({ _id: user._id }, user, { new: true })
+
+      delete userUpdated.password
+      return res.status(200).json(userUpdated)
     } catch (e) {
       if (e.codeName === 'DuplicateKey') {
         return res.status(400).json('User already exists')
