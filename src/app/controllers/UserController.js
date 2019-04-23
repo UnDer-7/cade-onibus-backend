@@ -21,22 +21,23 @@ class UserController {
   async updateUser (req, res) {
     let user = req.body
     try {
-      let pricing
-      switch (req.body.pacote.quantosDias) {
-        case 3:
-          pricing = 10
-          break
-        case 5:
-          pricing = 15
-          break
-        case 7:
-          pricing = 18
-          break
-        default:
-          break
+      if (req.body.pacote) {
+        let pricing
+        switch (req.body.pacote.quantosDias) {
+          case 3:
+            pricing = 10
+            break
+          case 5:
+            pricing = 15
+            break
+          case 7:
+            pricing = 18
+            break
+          default:
+            break
+        }
+        user.moedas -= pricing
       }
-
-      user.moedas -= pricing
 
       const userUpdated = await User.findOneAndUpdate({ _id: user._id }, user, { new: true })
 
