@@ -3,13 +3,28 @@ services:
   app:
     container_name: app-cade-onibus
     restart: always
+    networks:
+      - net-cade-onibus
     build: .
     ports:
       - "3000:3000"
     links:
       - mongo
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=$NODE_ENV
+      - PORT=$PORT
+      - APP_SECRET=$APP_SECRET
+      - DB_URL=$DB_URL
+      - DB_NAME=$DB_NAME
   mongo:
     container_name: mongo
+    networks:
+      - net-cade-onibus
     image: mongo
     ports:
       - "27017:27017"
+networks:
+  net-cade-onibus:
+    driver: bridge
