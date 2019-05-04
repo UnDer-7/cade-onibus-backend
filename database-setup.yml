@@ -1,0 +1,7 @@
+version: '2.2'
+services:
+  mongoDB:
+    image: mongo
+    container_name: mongoDB
+    ports:
+      - 27017:27017
