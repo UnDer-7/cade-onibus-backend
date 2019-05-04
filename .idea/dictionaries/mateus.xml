@@ -1,3 +1,7 @@
 <component name="ProjectDictionaryState">
-  <dictionary name="mateus" />
+  <dictionary name="mateus">
+    <words>
+      <w>bcrypt</w>
+    </words>
+  </dictionary>
 </component>

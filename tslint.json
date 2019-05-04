@@ -25,6 +25,7 @@
       true,
       "call-signature",
       "parameter",
+      "arrow-call-signature",
       "member-variable-declaration",
       "array-destructuring",
       "property-declaration"

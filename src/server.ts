@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { connect, set } from 'mongoose';
+import routes from './routes';
 
 class Server {
   public express: express.Application;
@@ -11,6 +12,7 @@ class Server {
 
     this.database();
     this.middleware();
+    this.routes();
   }
 
   private async database(): Promise<void> {
@@ -35,6 +37,10 @@ class Server {
       origin: 'http://localhost:4200',
     }));
     this.express.use(express.json());
+  }
+
+  private routes(): void {
+    this.express.use(routes)
   }
 }
 
