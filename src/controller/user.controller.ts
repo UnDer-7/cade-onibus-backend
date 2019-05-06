@@ -18,7 +18,7 @@ class UserController {
       return res.status(201).json(userCreated);
     } catch (e) {
       console.trace(e);
-      return res.status(500).json(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
     }
   };
 
@@ -39,7 +39,7 @@ class UserController {
       return res.status(200).json(user);
     } catch (e) {
       console.trace(e);
-      return res.status(500).json(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
     }
   };
 }

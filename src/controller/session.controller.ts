@@ -10,7 +10,7 @@ class SessionController {
     const user = ConvertToEntity.convert<User>(req.body);
 
     try {
-      const canLogin = await this.canLogin(user);
+      const canLogin = await this.canEmailPasswordLogin(user, res);
       if (canLogin) {
         return res.status(400).json(canLogin);
       }
@@ -18,25 +18,55 @@ class SessionController {
       return res.status(200).json(JWTService.createToken(user))
     } catch (e) {
       console.trace(e);
-      return res.status(500).json(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
     }
   };
 
-  private canLogin = async (user: User): Promise<string | undefined> => {
+  public loginWithGoogle = async (req: Request, res: Response): Promise<Response> => {
+    const user = ConvertToEntity.convert<User>(req.body);
+
+    try {
+      const canLogin = await this.canGoogleLogin(user, res);
+      if (canLogin) return canLogin;
+
+      return res.status(200).json(JWTService.createToken(user));
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
+  private canEmailPasswordLogin = async (user: User, res: Response): Promise<Response | undefined> => {
     try {
       const userFound = await UserSchema.findOne({ email: user.email });
       if (!userFound) {
-        return Messages.NOT_FOUND;
+        return res.status(404).json(Messages.NOT_FOUND);
       }
 
       if (!(await userFound.compareHash(user))) {
-        return Messages.INVALID_PASSWORD;
+        return res.status(400).json(Messages.INVALID_CREDENTIALS);
       }
     } catch (e) {
       console.trace(e);
-      return Messages.UNEXPECTED_ERROR;
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
     }
-  }
+  };
+
+  private canGoogleLogin = async (user: User, res: Response): Promise<Response | undefined> => {
+    try {
+      const userFound = await UserSchema.findOne({ email: user.email });
+      if (!userFound) {
+        return res.status(404).json(Messages.NOT_FOUND);
+      }
+
+      if (userFound.google_id !== user.google_id) {
+        return res.status(400).json(Messages.INVALID_CREDENTIALS);
+      }
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
 }
 
 export default new SessionController();

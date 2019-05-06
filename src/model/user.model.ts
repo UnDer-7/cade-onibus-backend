@@ -1,13 +1,12 @@
 import { Document } from 'mongoose';
-import { Onibus } from './onibus.model';
+import { Bus } from './bus.model';
 import { Base } from './base.model';
 
 export interface User extends Document, Base {
+  google_id?: string;
   name?: string;
   email?: string;
-  userId?: string;
-  moedas?: string;
   password?: string;
-  onibus?: Onibus[];
-  compareHash(user: User): Promise<boolean>;
+  onibus?: Bus[];
+  compareHash(user: User): Promise<boolean>
 }

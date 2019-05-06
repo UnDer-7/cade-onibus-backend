@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { connect, set } from 'mongoose';
 import routes from './routes';
+import LOGGER from 'morgan';
 
 class Server {
   public express: express.Application;
@@ -37,6 +38,7 @@ class Server {
       origin: 'http://localhost:4200',
     }));
     this.express.use(express.json());
+    this.express.use(LOGGER('dev'))
   }
 
   private routes(): void {

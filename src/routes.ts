@@ -10,6 +10,7 @@ const sessionURLs = '/api/session';
 // ----Authorization NOT REQUIRED----
 routes.post(userURLs, UserController.createUser);
 routes.post(`${sessionURLs}/email`, SessionController.loginWithEmail);
+routes.post(`${sessionURLs}/google`, SessionController.loginWithGoogle);
 
 routes.use(AuthenticationMiddleware.authenticationMiddleware);
 

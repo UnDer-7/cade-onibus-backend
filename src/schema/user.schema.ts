@@ -3,6 +3,9 @@ import * as bcrypt from 'bcrypt';
 import { User } from '../model/user.model';
 
 const UserSchema: Schema = new Schema({
+  google_id: {
+    type: String,
+  },
   name: {
     type: String,
     required: true,
@@ -15,15 +18,12 @@ const UserSchema: Schema = new Schema({
     trim: true,
     minlength: [5, 'Minimum 5 characters'],
   },
-  userId: {
-    type: String,
-  },
   password: {
     type: String,
     trim: true,
     minlength: [5, 'Minimum 5 characters'],
   },
-  onibus: {
+  bus: {
     type: [Object],
   },
   createdAt: {
