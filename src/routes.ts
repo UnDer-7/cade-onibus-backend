@@ -16,6 +16,7 @@ routes.use(AuthenticationMiddleware.authenticationMiddleware);
 
 // ----Authorization REQUIRED----
 // USER'S RESOURCE
-routes.get(`${ userURLs }/:id`, UserController.getUser);
+routes.get(`${ userURLs }/:email`, UserController.getUser);
+routes.put(`${ userURLs }`, UserController.updateUser);
 
 export default routes;

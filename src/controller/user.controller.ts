@@ -22,13 +22,29 @@ class UserController {
     }
   };
 
+  public updateUser = async (req: Request, res: Response): Promise<Response> => {
+    const user = ConvertToEntity.convert<User>(req.body);
+
+    try {
+      const userUpdated = await UserSchema.findOneAndUpdate(
+        { _id: user._id },
+        user,
+        { new: true },
+      );
+      return res.status(200).json(userUpdated);
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
   public getUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-      if (!req.params.id) {
-        return res.status(400).json(Messages.NO_ID);
+      if (!req.params.email) {
+        return res.status(400).json(Messages.NO_EMAIL);
       }
 
-      const user = await UserSchema.findById(req.params.id);
+      const user = await UserSchema.findOne({ email: req.params.email });
 
       if (!user) {
         return res.status(404).json(Messages.NOT_FOUND);
