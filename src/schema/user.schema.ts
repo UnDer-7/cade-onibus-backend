@@ -16,7 +16,6 @@ const UserSchema: Schema = new Schema({
     required: true,
     unique: true,
     trim: true,
-    minlength: [5, 'Minimum 5 characters'],
   },
   password: {
     type: String,
