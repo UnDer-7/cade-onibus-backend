@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - '10.15.1'
+cache:
+  directories:
+  - node_modules
+branches:
+  only:
+  - master
+script:
+  - npm run lint
+  - npm run build
+deploy:
+  provider: heroku
+  app: cade-onibus-playstore-prod
+  api_key: $HEROKU_TOKEN
+  skip_cleanup: true
+  local_dir: dist/
+  on:
+    repo: UnDer-7/cade-onibus-backend-playstore
+    branch: master
+notifications:
+  email: false
