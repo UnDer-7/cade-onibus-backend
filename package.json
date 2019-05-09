@@ -1,6 +1,6 @@
 {
   "name": "cade-onibus-backend",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "node ./dist/index.js",
@@ -8,8 +8,6 @@
     "build": "tsc",
     "lint": "tslint src/**/*.ts"
   },
-  "author": "Mateus Gomes",
-  "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.6",
     "cors": "^2.8.5",
@@ -34,5 +32,40 @@
     "ts-node-dev": "^1.0.0-pre.32",
     "tslint": "^5.15.0",
     "typescript": "^3.4.3"
-  }
+  },
+  "author": {
+    "name": "Mateus Gomes da Silva Cardos",
+    "url": "https://www.linkedin.com/in/mateus-gomes-da-silva-cardoso/",
+    "email": "mateus7532@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UnDer-7/cade-onibus-backend-playstore"
+  },
+  "bugs": {
+    "url": "https://github.com/UnDer-7/cade-onibus-backend-playstore/issues",
+    "email": "mateus7532@gmail.com"
+  },
+  "description": "Backend para o app Cadê Ônibus, um rastreador de ônibus brasilienses",
+  "keywords": [
+    "UnDer-7",
+    "Mateus Gomes",
+    "Brasilia",
+    "DF",
+    "Distrito Federal",
+    "Sobradinho",
+    "Sobradinho II",
+    "Sobradinho 2",
+    "Onibus",
+    "Bus",
+    "DFTrans",
+    "DF-Trans",
+    "DF Trans",
+    "Google Maps",
+    "Maps",
+    "Mapa",
+    "Ionic",
+    "Ionic 4",
+    "Angular"
+  ]
 }
