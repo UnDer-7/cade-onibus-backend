@@ -35,7 +35,10 @@ class Server {
   private middleware(): void {
     this.express.use(helmet());
     this.express.use(cors({
-      origin: 'http://localhost:4200',
+      origin: [
+        'http://localhost:4200',
+        'https://cade-onibus-playstore-prod.herokuapp.com',
+      ],
     }));
     this.express.use(express.json());
     this.express.use(LOGGER('dev'))
