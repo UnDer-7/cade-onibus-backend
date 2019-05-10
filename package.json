@@ -7,7 +7,7 @@
     "start-local": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
     "build": "tsc",
     "lint": "tslint src/**/*.ts",
-    "test-modules": "snyk test"
+    "test-modules": "snyk test --severity-threshold=medium"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",

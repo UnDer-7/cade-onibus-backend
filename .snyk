@@ -1,4 +1,9 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.13.5
-ignore: {}
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:bcrypt':
+    - '*':
+        reason: Only Timing Attack - Low
+        expires: 2019-06-10T00:00:00.000Z
 patch: {}
