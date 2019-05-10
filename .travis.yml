@@ -8,6 +8,7 @@ branches:
   only:
   - master
 script:
+  - npm run test-modules
   - npm run lint
   - npm run build
 deploy:
@@ -19,5 +20,7 @@ deploy:
   on:
     repo: UnDer-7/cade-onibus-backend-playstore
     branch: master
+after_deploy:
+  - snyk monitor
 notifications:
   email: false

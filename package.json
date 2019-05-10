@@ -6,7 +6,8 @@
     "start": "node ./dist/index.js",
     "start-local": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
     "build": "tsc",
-    "lint": "tslint src/**/*.ts"
+    "lint": "tslint src/**/*.ts",
+    "test-modules": "snyk test"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
@@ -31,7 +32,8 @@
     "@types/node": "^11.13.4",
     "ts-node-dev": "^1.0.0-pre.32",
     "tslint": "^5.15.0",
-    "typescript": "^3.4.3"
+    "typescript": "^3.4.3",
+    "snyk": "^1.163.1"
   },
   "author": {
     "name": "Mateus Gomes da Silva Cardos",
