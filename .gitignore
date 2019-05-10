@@ -17,6 +17,7 @@
 *.launch
 .settings/
 *.sublime-workspace
+*.sublime-project
 
 # IDE - VSCode
 .vscode/*
@@ -25,6 +26,13 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+
+# Ionic
+.ionic/
+platforms/
+plugins/
+plugins/android.json
+plugins/ios.json
 
 # misc
 /.sass-cache
@@ -35,3 +43,13 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+*~
+*.sw[mnpcod]
+*.log
+*.tmp
+*.tmp.*
+log.txt
+.sourcemaps/
+.versions/
+temp/
+$RECYCLE.BIN/
