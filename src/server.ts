@@ -37,7 +37,7 @@ class Server {
     this.express.use(cors({
       origin: [
         'http://localhost:4200',
-        'https://cade-onibus-playstore-prod.herokuapp.com',
+        'https://cadeonibus.web.app',
       ],
     }));
     this.express.use(express.json());
