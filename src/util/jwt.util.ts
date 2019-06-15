@@ -3,6 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import { promisify } from 'util';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { Token } from '../model/token.model';
+import { Messages } from './messages.util';
 
 export class JWTService {
   public static createToken(user: User): string {
@@ -13,7 +14,7 @@ export class JWTService {
 
     // @ts-ignore
     return jwt.sign(payload, process.env.APP_SECRET, {
-      expiresIn: '10 days', algorithm: 'HS512',
+      expiresIn: '20 days', algorithm: 'HS512',
     })
   }
 
@@ -25,4 +26,14 @@ export class JWTService {
       return e
     }
   }
+
+  public static isTokenValid = (decode: Token | JsonWebTokenError): string | undefined => {
+    if (decode instanceof JsonWebTokenError && decode.message === 'invalid signature') {
+      return Messages.INVALID_TOKEN;
+    }
+    if (decode.hasOwnProperty('email')) {
+      return;
+    }
+    throw decode;
+  };
 }

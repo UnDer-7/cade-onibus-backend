@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Messages } from '../util/messages.util';
 import { JWTService } from '../util/jwt.util';
-import { Token } from '../model/token.model';
-import { JsonWebTokenError } from 'jsonwebtoken';
 
 export class AuthenticationMiddleware {
   public static authenticationMiddleware =
@@ -18,7 +16,7 @@ export class AuthenticationMiddleware {
 
       try {
         const decoded = await JWTService.verifyToken(token);
-        const isTokenValid = AuthenticationMiddleware.isTokenValid(decoded);
+        const isTokenValid = JWTService.isTokenValid(decoded);
 
         if (isTokenValid) {
           return res.status(401).json(isTokenValid)
@@ -30,19 +28,9 @@ export class AuthenticationMiddleware {
         return next()
       } catch (e) {
         console.trace(e);
-        res.status(500).json(e);
+        res.status(500).json(Messages.UNEXPECTED_ERROR);
       }
     };
-
-  private static isTokenValid = (decode: Token | JsonWebTokenError): string | undefined => {
-    if (decode instanceof JsonWebTokenError && decode.message === 'invalid signature') {
-      return Messages.INVALID_TOKEN;
-    }
-    if (decode.hasOwnProperty('email')) {
-      return;
-    }
-    throw decode;
-  };
 
   private static isHeadersValid = (headers: string | undefined): string | undefined => {
     if (!headers) {

@@ -4,6 +4,7 @@ import { ConvertToEntity } from '../util/convert-to-entity.util';
 import UserSchema from '../schema/user.schema';
 import { Messages } from '../util/messages.util';
 import { JWTService } from '../util/jwt.util';
+import { Token } from '../model/token.model';
 
 class SessionController {
   public loginWithEmail = async (req: Request, res: Response): Promise<Response> => {
@@ -28,6 +29,30 @@ class SessionController {
     try {
       const canLogin = await this.canGoogleLogin(user, res);
       if (canLogin) return canLogin;
+
+      return res.status(200).json(JWTService.createToken(user));
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
+  public refreshToken = async (req: Request, res: Response): Promise<Response> => {
+    const token = req.body.token;
+    try {
+      const decoded = await JWTService.verifyToken(token);
+      const isTokenValid = JWTService.isTokenValid(decoded);
+
+      if (isTokenValid) {
+        return res.status(401).json(isTokenValid)
+      }
+
+      const { email } = decoded as Token;
+
+      // @ts-ignore
+      const user: User = {
+        email,
+      };
 
       return res.status(200).json(JWTService.createToken(user));
     } catch (e) {
