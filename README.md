@@ -1,11 +1,10 @@
-# Backend for the Cadê ônibus Project.
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
-![Build Status](https://travis-ci.com/UnDer-7/cade-onibus-backend.svg?branch=development)
+# DEPRECATED
+⛔️ DEPRECATED new version of Cadê Ônibus can be found here ->
 
-## About the project
-Backend was created using [generator-lazy-backend](https://github.com/UnDer-7/generator-lazy-backend#readme)
+## Frontend: https://github.com/UnDer-7/cade-onibus-frontend-playstore
 
-## Usage
-```
-npm run startlocal
-```
+## Backend: https://github.com/UnDer-7/cade-onibus-backend-playstore
+
+I made a new version because I wasn't happy with the project and it was easier to make a new one
