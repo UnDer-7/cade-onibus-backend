@@ -9,6 +9,7 @@
     "lint": "tslint src/**/*.ts",
     "test-modules": "snyk test --severity-threshold=medium",
     "snyk-protect": "snyk protect",
+    "snyk-wizard": "snyk wizard",
     "prepare": "npm run snyk-protect"
   },
   "dependencies": {
