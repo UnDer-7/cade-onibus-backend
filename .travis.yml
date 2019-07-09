@@ -18,7 +18,7 @@ deploy:
   skip_cleanup: true
   local_dir: dist/
   on:
-    repo: UnDer-7/cade-onibus-backend-playstore
+    repo: UnDer-7/cade-onibus-backend
     branch: master
 after_deploy:
   - snyk monitor
