@@ -7,7 +7,9 @@
     "start-local": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
     "build": "tsc",
     "lint": "tslint src/**/*.ts",
-    "test-modules": "snyk test --severity-threshold=medium"
+    "test-modules": "snyk test --severity-threshold=medium",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
@@ -18,7 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.13",
     "morgan": "^1.9.1",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "snyk": "^1.192.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
@@ -30,7 +33,6 @@
     "@types/mongoose": "^5.5.5",
     "@types/morgan": "^1.7.35",
     "@types/node": "^11.13.13",
-    "snyk": "^1.174.1",
     "ts-node-dev": "^1.0.0-pre.39",
     "tslint": "^5.17.0",
     "typescript": "^3.5.1"
@@ -72,5 +74,6 @@
     "Ionic",
     "Ionic 4",
     "Angular"
-  ]
+  ],
+  "snyk": true
 }
