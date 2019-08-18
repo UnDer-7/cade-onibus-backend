@@ -233,6 +233,43 @@ class UserController {
     return res.status(200)
   };
 
+  public deleteCategory = async (req: Request, res: Response): Promise<Response> => {
+    const user = req.headers.authorization;
+    const categoryUuid = req.params.uuid;
+
+    try {
+      const userFound = await UserSchema.findOne({email: 'mateus7532@gmail.com'}).select('-password') as User;
+      const categoryIndex = userFound.categories.findIndex(item => item.uuid === categoryUuid);
+      const busesRemoved = userFound.categories[categoryIndex].buses;
+      userFound.categories.splice(categoryIndex, 1);
+
+      busesRemoved.forEach(item => {
+        const canRemove = this.canRemoveFromAll(userFound, item);
+        if (canRemove) {
+          const todosBuses = userFound.categories
+            .find(cat => cat.title === 'Todos')!
+            .buses.filter(bus => bus.numero !== item.numero);
+
+          userFound.categories
+            .find(todos => todos.title === 'Todos')!
+            .buses = todosBuses;
+        }
+
+      });
+
+      const userUpdated = await UserSchema.findOneAndUpdate(
+        { email: userFound.email },
+        userFound,
+        { new: true },
+      );
+
+      return res.status(200).json(userUpdated!.categories);
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
   public getUser = async (req: Request, res: Response): Promise<Response> => {
     try {
       if (!req.params.email) {

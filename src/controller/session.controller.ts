@@ -13,7 +13,7 @@ class SessionController {
     try {
       const canLogin = await this.canEmailPasswordLogin(user, res);
       if (canLogin) {
-        return res.status(400).json(canLogin);
+        return canLogin
       }
 
       return res.status(200).json(JWTService.createToken(user))

@@ -24,6 +24,7 @@ routes.put(`${ userURLs }`, UserController.updateUser);
 
 routes.post(`${ userURLs}/category`, UserController.addCategory);
 routes.put(`${ userURLs }/category`, UserController.updateCategory);
-routes.delete(`${ userURLs }/category/:uuid`, UserController.deleteBus);
+routes.delete(`${ userURLs }/category/bus/:uuid`, UserController.deleteBus);
+routes.delete(`${ userURLs }/category/:uuid`, UserController.deleteCategory);
 
 export default routes;
