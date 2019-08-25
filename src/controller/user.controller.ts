@@ -10,6 +10,7 @@ import { ConvertToEntity } from '../util/convert-to-entity.util';
 import UserSchema from '../schema/user.schema';
 import { Messages } from '../util/messages.util';
 import { Category, Bus as BusCategory } from '../model/category.model';
+import { flatten, uniqBy } from 'lodash';
 
 class UserController {
 
@@ -88,16 +89,129 @@ class UserController {
     }
   };
 
-  public updateUser = async (req: Request, res: Response): Promise<Response> => {
+  public createUserWeb = async (req: Request, res: Response): Promise<Response> => {
     const user = ConvertToEntity.convert<User>(req.body);
+    // @ts-ignore
+    const buses: BusCategory[] = user.bus.map((item) => {
+      return {
+        numero: item.numero,
+        descricao: item.descricao,
+        tarifa: item.faixaTarifaria!.tarifa,
+      } as BusCategory;
+    });
 
     try {
+      if (await UserSchema.findOne( { email: user.email })) {
+        return res.status(400).json(Messages.RESOURCE_EXISTS);
+      }
+
+      user.categories = [];
+      const todos: Category = {
+        uuid: uuid(),
+        title: 'Todos',
+        cardColor: 4285547775,
+        buses,
+      };
+      const web: Category = {
+        uuid: uuid(),
+        title: 'Cadê Ônibus Web',
+        cardColor: 4293467747,
+        buses,
+      };
+      user.categories.push(todos, web);
+
+      const userCreate = await UserSchema.create(user);
+      return res.status(201).json(userCreate);
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
+  public removeBus = async (req: Request, res: Response): Promise<Response> => {
+    const linha = req.params.linha;
+    // @ts-ignore
+    const email = req.userEmail;
+
+    try {
+      let userFound = await UserSchema.findOne({ email })
+        .select('-password') as User;
+
+      const index = userFound.categories.findIndex((item) => item.title === 'Cadê Ônibus Web');
+      console.log('INDEX: ', index);
+
+      if (index < 0) {
+        return res.status(400).json(Messages.NOT_FOUND);
+      }
+      const hasBus: boolean = !!userFound.categories[index].buses.find((item) => item.numero === linha);
+      if (!hasBus) {
+        return res.status(400).json(Messages.NOT_FOUND);
+      }
+
+      userFound.categories[index].buses
+        = userFound.categories[index].buses.filter((item) => item.numero !== linha);
+
+      userFound = this.updateTodos(userFound);
+
       const userUpdated = await UserSchema.findOneAndUpdate(
-        { _id: user._id },
-        user,
+        { email: userFound.email },
+        userFound,
         { new: true },
       );
-      return res.status(200).json(userUpdated);
+
+      // @ts-ignore
+      return res.status(200).json(this.getOnlyTodo(userUpdated));
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
+  public addBus = async (req: Request, res: Response): Promise<Response> => {
+    const busesOld: Bus[] = req.body;
+    const buses: BusCategory[] = busesOld.map((item) => {
+      return {
+        numero: item.numero,
+        descricao: item.descricao,
+        tarifa: item.faixaTarifaria!.tarifa,
+      } as BusCategory;
+    });
+
+    // @ts-ignore
+    const email = req.userEmail;
+    try {
+      let userFound = await UserSchema.findOne( { email })
+        .select('-password') as User;
+
+      const containsWeb: boolean = !!userFound!.categories.find((item) => item.title === 'Cadê Ônibus Web');
+      const allBuses = userFound.categories.find((item) => item.title === 'Todos')!.buses;
+      buses.forEach((item) => allBuses.push({
+        numero: item.numero,
+        descricao: item.descricao,
+        tarifa: item.tarifa,
+      }));
+
+      if (!containsWeb) {
+        userFound.categories.push({
+          uuid: uuid(),
+          title: 'Cadê Ônibus Web',
+          cardColor: 4293467747,
+          buses: allBuses,
+        });
+      } else {
+        const index = userFound.categories.findIndex((item) => item.title === 'Cadê Ônibus Web');
+        buses.forEach((item) => userFound.categories[index].buses.push(item));
+      }
+
+      userFound = this.updateTodos(userFound);
+      const userUpdate = await UserSchema.findOneAndUpdate(
+        { email: userFound.email },
+        userFound,
+        { new: true },
+      );
+
+      // @ts-ignore
+      return res.status(200).json(this.getOnlyTodo(userUpdate));
     } catch (e) {
       console.trace(e);
       return res.status(500).json(Messages.UNEXPECTED_ERROR);
@@ -134,6 +248,20 @@ class UserController {
     }
   };
 
+  public getTodos = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      // @ts-ignore
+      const email = req.userEmail;
+      const user = await UserSchema.findOne({ email });
+      // @ts-ignore
+      const newUser = this.getOnlyTodo(user);
+      return res.status(200).json(newUser);
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
   private factoryNewBus = (buses: Bus[]): BusCategory[] => {
     return buses.map((item) => {
       return {
@@ -142,6 +270,31 @@ class UserController {
         tarifa: item.faixaTarifaria!.tarifa,
       } as BusCategory;
     });
+  }
+
+  private updateTodos = (user: User): User => {
+    const allCategory = user.categories.filter((item) => item.title !== 'Todos');
+    const allBuses = allCategory.map((item) => item.buses);
+    const flattedBuses = flatten(allBuses);
+    const todos = uniqBy(flattedBuses, 'numero');
+    user.categories.forEach((item) => {
+      if (item.title === 'Todos') {
+        item.buses = todos;
+        return;
+      }
+    });
+    return user;
+  }
+
+  private getOnlyTodo = (user: User): any => {
+    const buses = user!.categories.find((item) => item.title = 'Todos')!.buses;
+    return {
+      google_id: user!.google_id,
+      name: user!.name,
+      email: user!.email,
+      password: user!.password,
+      bus: buses,
+    };
   }
 }
 

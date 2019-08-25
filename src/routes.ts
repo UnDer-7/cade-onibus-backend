@@ -15,6 +15,8 @@ const sessionURLs = '/api/session';
 routes.get(`${ userURLs }/update-database`, UserController.updateDatabase);
 
 routes.post(userURLs, UserController.createUser);
+routes.post(userURLs + '/web', UserController.createUserWeb);
+
 routes.post(`${sessionURLs}/refresh`, SessionController.refreshToken);
 routes.post(`${sessionURLs}/email`, SessionController.loginWithEmail);
 routes.post(`${sessionURLs}/google`, SessionController.loginWithGoogle);
@@ -24,7 +26,10 @@ routes.use(AuthenticationMiddleware.authenticationMiddleware);
 // ----Authorization REQUIRED----
 // USER'S RESOURCE
 routes.get(`${ userURLs }/:email`, UserController.getUser);
-routes.put(`${ userURLs }`, UserController.updateUser);
+// USER'S RESOURCE WEB
+routes.get(`${ userURLs }`, UserController.getTodos);
+routes.post(`${ userURLs }/web`, UserController.addBus);
+routes.delete(`${ userURLs }/web/:linha`, UserController.removeBus);
 
 // CATEGORY'S RESOURCE
 routes.post(`${ categoryURLs}`, CategoryController.addCategory);
