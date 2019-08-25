@@ -1,4 +1,7 @@
 // tslint:disable-next-line
+import { Bus } from '../model/bus.model';
+
+// tslint:disable-next-line:no-var-requires
 const uuid = require('uuid/v1');
 
 import { Request, Response } from 'express';
@@ -6,21 +9,18 @@ import { User } from '../model/user.model';
 import { ConvertToEntity } from '../util/convert-to-entity.util';
 import UserSchema from '../schema/user.schema';
 import { Messages } from '../util/messages.util';
-import { Category } from '../model/category.model';
+import { Category, Bus as BusCategory } from '../model/category.model';
 
 class UserController {
 
   public updateDatabase = async (_req: Request, res: Response): Promise<Response> => {
     try {
       const foundG = await  UserSchema.find();
-      // @ts-ignore
-      // newUser.categories = [];
 
       let newUser;
       for (const item of foundG) {
         // @ts-ignore
-        const allBuss = item.bus;
-
+        const allBuss = this.factoryNewBus(item.bus);
         newUser = Object.assign({} as User, {
           // @ts-ignore
           google_id: item.google_id,
@@ -38,16 +38,16 @@ class UserController {
 
         newUser.categories = [{
           uuid: uuid(),
-          title: 'Cadê Ônibus Web',
-          cardColor: 4293467747,
+          title: 'Todos',
+          cardColor: 4285547775,
           buses: allBuss ? allBuss : [],
         }] as Category[];
 
         newUser.categories.push({
           uuid: uuid(),
-          title: 'Todos',
-          cardColor: 4285547775,
-          buses: [],
+          title: 'Cadê Ônibus Web',
+          cardColor: 4293467747,
+          buses: allBuss ? allBuss : [],
         });
 
         await UserSchema.updateOne(
@@ -56,7 +56,6 @@ class UserController {
           { new: true, safe: false, strict: false},
         );
       }
-      this.moveAllBusToNewModel();
       return res.json(newUser);
     } catch (e) {
       console.trace(e);
@@ -135,35 +134,15 @@ class UserController {
     }
   };
 
-  private moveAllBusToNewModel = async (): Promise<void> => {
-    const foundG = await UserSchema.find();
-
-    for (const item of foundG) {
-      const allBus = item.categories[0].buses;
-      // @ts-ignore
-      const newBuses = [];
-
-      // @ts-ignore
-      // tslint:disable-next-line:no-shadowed-variable
-      allBus.forEach(item => {
-        const newBus = {
-          numero: item.numero,
-          descricao: item.descricao,
-          // @ts-ignore
-          tarifa: item.faixaTarifaria.tarifa,
-        };
-        newBuses.push(newBus);
-      });
-
-      // @ts-ignore
-      item.categories[0].buses = newBuses;
-      await UserSchema.updateOne(
-        { _id: item._id},
-        item,
-        { new: true, safe: false, strict: false},
-      )
-    }
-  };
+  private factoryNewBus = (buses: Bus[]): BusCategory[] => {
+    return buses.map((item) => {
+      return {
+        numero: item.numero,
+        descricao: item.descricao,
+        tarifa: item.faixaTarifaria!.tarifa,
+      } as BusCategory;
+    });
+  }
 }
 
 export default new UserController();
