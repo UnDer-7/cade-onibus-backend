@@ -1,10 +1,14 @@
 import { Router } from 'express';
+
 import UserController from './controller/user.controller';
-import { AuthenticationMiddleware } from './middleware/authentication.middleware';
+import AuthenticationMiddleware from './middleware/authentication.middleware';
 import SessionController from './controller/session.controller';
+import CategoryController from './controller/category.controller';
+
 const routes = Router();
 
 const userURLs = '/api/users';
+const categoryURLs = '/api/categories';
 const sessionURLs = '/api/session';
 
 // ----Authorization NOT REQUIRED----
@@ -15,16 +19,17 @@ routes.post(`${sessionURLs}/refresh`, SessionController.refreshToken);
 routes.post(`${sessionURLs}/email`, SessionController.loginWithEmail);
 routes.post(`${sessionURLs}/google`, SessionController.loginWithGoogle);
 
-// routes.use(AuthenticationMiddleware.authenticationMiddleware);
+routes.use(AuthenticationMiddleware.authenticationMiddleware);
 
 // ----Authorization REQUIRED----
 // USER'S RESOURCE
 routes.get(`${ userURLs }/:email`, UserController.getUser);
 routes.put(`${ userURLs }`, UserController.updateUser);
 
-routes.post(`${ userURLs}/category`, UserController.addCategory);
-routes.put(`${ userURLs }/category`, UserController.updateCategory);
-routes.delete(`${ userURLs }/category/bus/:uuid`, UserController.deleteBus);
-routes.delete(`${ userURLs }/category/:uuid`, UserController.deleteCategory);
+// CATEGORY'S RESOURCE
+routes.post(`${ categoryURLs}`, CategoryController.addCategory);
+routes.put(`${ categoryURLs }`, CategoryController.updateCategory);
+routes.delete(`${ categoryURLs }`, CategoryController.deleteCategory);
+routes.delete(`${ categoryURLs }/bus/:uuid`, CategoryController.deleteBus);
 
 export default routes;

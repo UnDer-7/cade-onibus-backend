@@ -2,11 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import { Messages } from '../util/messages.util';
 import { JWTService } from '../util/jwt.util';
 
-export class AuthenticationMiddleware {
-  public static authenticationMiddleware =
+class AuthenticationMiddleware {
+  public authenticationMiddleware =
     async (req: Request, res: Response, next: NextFunction): Promise<NextFunction | Response | void> => {
       const headers = req.headers.authorization;
-      const isHeadersValid =  AuthenticationMiddleware.isHeadersValid(headers);
+      const isHeadersValid =  this.isHeadersValid(headers);
 
       if (isHeadersValid) {
         return res.status(401).json(isHeadersValid)
@@ -32,7 +32,7 @@ export class AuthenticationMiddleware {
       }
     };
 
-  private static isHeadersValid = (headers: string | undefined): string | undefined => {
+  private isHeadersValid = (headers: string | undefined): string | undefined => {
     if (!headers) {
       return Messages.TOKEN_NOT_FOUND
     }
@@ -43,5 +43,6 @@ export class AuthenticationMiddleware {
       return Messages.INVALID_TOKEN;
     }
   };
-
 }
+
+export default new AuthenticationMiddleware();
