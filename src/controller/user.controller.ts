@@ -36,14 +36,19 @@ class UserController {
           _id: item._id,
         });
 
-        const category = [{
+        newUser.categories = [{
+          uuid: uuid(),
+          title: 'Cadê Ônibus Web',
+          cardColor: 4293467747,
+          buses: allBuss ? allBuss : [],
+        }] as Category[];
+
+        newUser.categories.push({
           uuid: uuid(),
           title: 'Todos',
           cardColor: 4285547775,
-          buses: allBuss,
-        } as Category];
-
-        newUser.categories = category;
+          buses: [],
+        });
 
         await UserSchema.updateOne(
           { _id: newUser._id},
@@ -159,7 +164,6 @@ class UserController {
       )
     }
   };
-
 }
 
 export default new UserController();

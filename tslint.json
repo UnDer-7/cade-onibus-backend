@@ -43,8 +43,7 @@
     ],
     "function-constructor": true,
     "import-blacklist": [
-      true,
-      "lodash"
+      false
     ],
     "no-arg": true,
     "no-bitwise": true,
