@@ -270,7 +270,7 @@ class UserController {
         tarifa: item.faixaTarifaria!.tarifa,
       } as BusCategory;
     });
-  }
+  };
 
   private updateTodos = (user: User): User => {
     const allCategory = user.categories.filter((item) => item.title !== 'Todos');
@@ -284,7 +284,7 @@ class UserController {
       }
     });
     return user;
-  }
+  };
 
   private getOnlyTodo = (user: User): any => {
     const buses = user!.categories.find((item) => item.title = 'Todos')!.buses;
