@@ -8,6 +8,7 @@ import { Token } from '../model/token.model';
 
 class SessionController {
   public loginWithEmail = async (req: Request, res: Response): Promise<Response> => {
+    console.log('REQ BODY ->\n', req.body);
     const user = ConvertToEntity.convert<User>(req.body);
 
     try {
