@@ -15,6 +15,11 @@ const sessionURLs = '/api/session';
 routes.get(`${ userURLs }/update-database`, UserController.updateDatabase);
 
 routes.post(userURLs, UserController.createUser);
+
+// ----Associate
+routes.post(`${userURLs}/associate`, UserController.associateAccount);
+routes.post(`${userURLs}/associate/email`, UserController.associateEmail);
+
 routes.post(userURLs + '/web', UserController.createUserWeb);
 
 routes.post(`${sessionURLs}/refresh`, SessionController.refreshToken);

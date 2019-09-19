@@ -64,12 +64,83 @@ class UserController {
     }
   };
 
-  public createUser = async (req: Request, res: Response): Promise<Response> => {
+  public  associateEmail = async (req: Request, res: Response): Promise<Response> => {
     const user = ConvertToEntity.convert<User>(req.body);
 
     try {
-      if (await UserSchema.findOne({ email: user.email })) {
-        return res.status(400).json(Messages.RESOURCE_EXISTS);
+      const userFound = await UserSchema.findOne({ email: user.email });
+      if (!userFound) {
+        console.log('Usuario nao encontrado');
+        return res.status(404).json(Messages.NOT_FOUND);
+      }
+
+      if (!await userFound.compareHash(user)) {
+        return res.status(400).json(Messages.INVALID_CREDENTIALS);
+      }
+
+      userFound.google_id = user.google_id;
+      const userSaved = await userFound.save();
+      return res.status(200).json(userSaved);
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
+  public  associateAccount = async (req: Request, res: Response): Promise<Response> => {
+    const user = ConvertToEntity.convert<User>(req.body);
+
+    try {
+      const userFound = await UserSchema.findOne({ email: user.email });
+      if (!userFound) {
+        console.log('Usuario nao encontrado');
+        return res.status(404).json(Messages.NOT_FOUND);
+      }
+
+      if (!userFound.google_id) {
+        console.log('Usuario nao tem GoogleID');
+        return res.status(404).json(Messages.INVALID_CREDENTIALS);
+      }
+
+      if (userFound.google_id !== user.google_id) {
+        console.log('Usuario informou um GoogleID diferente');
+        return res.status(404).json(Messages.INVALID_CREDENTIALS);
+      }
+
+      if (userFound.google_id && userFound.password) {
+        return res.status(404).json(Messages.RESOURCE_EXISTS);
+      }
+
+      userFound.password = user.password;
+      const userCreated = await userFound.save();
+      console.log('USER -> \n', userCreated);
+      return res.status(200).json(userCreated);
+
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
+  public createUser = async (req: Request, res: Response): Promise<Response> => {
+    const user = ConvertToEntity.convert<User>(req.body);
+    const { type } = req.query;
+
+    try {
+      const userFound = await UserSchema.findOne({ email: user.email });
+
+      if (userFound) {
+        if (type === 'email') {
+          if (userFound.password) {
+            return res.status(400).json(Messages.RESOURCE_EXISTS);
+          }
+          return res.status(400).json(Messages.CAN_CREATE);
+        } else {
+          if (userFound.google_id) {
+            return res.status(400).json(Messages.RESOURCE_EXISTS)
+          }
+          return res.status(400).json(Messages.CAN_CREATE);
+        }
       }
 
       user.categories = [];

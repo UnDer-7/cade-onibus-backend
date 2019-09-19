@@ -8,7 +8,6 @@ import { Token } from '../model/token.model';
 
 class SessionController {
   public loginWithEmail = async (req: Request, res: Response): Promise<Response> => {
-    console.log('REQ BODY ->\n', req.body);
     const user = ConvertToEntity.convert<User>(req.body);
 
     try {
@@ -69,6 +68,10 @@ class SessionController {
         return res.status(404).json(Messages.NOT_FOUND);
       }
 
+      if (!userFound.password) {
+        return res.status(400).json(Messages.EMAIL_USED_ON_GOOGLE);
+      }
+
       if (!(await userFound.compareHash(user))) {
         return res.status(400).json(Messages.INVALID_CREDENTIALS);
       }
@@ -86,6 +89,9 @@ class SessionController {
       }
 
       if (userFound.google_id !== user.google_id) {
+        if (userFound.password && !userFound.google_id) {
+          return res.status(400).json(Messages.CAN_CREATE);
+        }
         return res.status(400).json(Messages.INVALID_CREDENTIALS);
       }
     } catch (e) {
