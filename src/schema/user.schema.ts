@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { User } from '../model/user.model';
 
+// tslint:disable-next-line:variable-name
 const UserSchema: Schema = new Schema({
   google_id: {
     type: String,
