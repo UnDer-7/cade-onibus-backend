@@ -33,7 +33,7 @@ routes.use(AuthenticationMiddleware.authenticationMiddleware);
 routes.get(`${ userURLs }/:email`, UserController.getUser);
 // USER'S RESOURCE WEB
 routes.get(`${ userURLs }`, UserController.getTodos);
-routes.post(`${ userURLs }/web`, UserController.addBus);
+routes.post(`${ userURLs }/web/add-bus`, UserController.addBus);
 routes.delete(`${ userURLs }/web/:linha`, UserController.removeBus);
 
 // CATEGORY'S RESOURCE
