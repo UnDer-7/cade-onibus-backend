@@ -2,13 +2,13 @@ import { Schema, model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { User } from '../model/user.model';
 
+// tslint:disable-next-line:variable-name
 const UserSchema: Schema = new Schema({
   google_id: {
     type: String,
   },
   name: {
     type: String,
-    required: true,
     trim: true,
   },
   email: {
@@ -25,6 +25,26 @@ const UserSchema: Schema = new Schema({
   bus: {
     type: [Object],
   },
+  categories: [
+    {
+      _id: false,
+      title: {
+        type: String,
+        unique: true,
+        required: true,
+        trim: true,
+      },
+      cardColor: {
+        type: Number,
+        required: true,
+      },
+      uuid: {
+        type: Schema.Types.String,
+        required: true,
+      },
+      buses: [Schema.Types.Mixed],
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now(),

@@ -10,5 +10,6 @@ server.listen(port, () => {
   console.log('\n----------------------');
   console.log(`SERVER RUNNING ON\nhttp://localhost:${port}`);
   console.log('ENVIRONMENT --> ', process.env.NODE_ENV);
+  console.log('SERVER VERSION: \t2.0.0');
   console.log('----------------------\n');
 });

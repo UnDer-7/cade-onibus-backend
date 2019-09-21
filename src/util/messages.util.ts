@@ -11,10 +11,21 @@ export class Messages {
    * resource-already-exists
    */
   public static readonly RESOURCE_EXISTS: string = 'resource-already-exists';
+
+  public static readonly CAN_CREATE: string = 'can-crate';
+
   /**
    * invalid-credentials
    */
-  public static readonly INVALID_CREDENTIALS: string = 'invalid-credentials';
+    public static readonly INVALID_CREDENTIALS: string = 'invalid-credentials';
+  /**
+   * email-used-on-google
+   */
+  public static readonly EMAIL_USED_ON_GOOGLE: string = 'email-used-on-google';
+  /**
+   * email-used-on-google
+   */
+  public static readonly EMAIL_USED_ON_EMAIL_PASSWORD: string = 'email-used-on-email-password';
   /**
    * token-not-found
    */

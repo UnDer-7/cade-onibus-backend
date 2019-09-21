@@ -22,6 +22,7 @@ class Server {
       await connect(process.env.DB_URL, {
         useNewUrlParser: true,
         useCreateIndex: true,
+        useFindAndModify: false,
         dbName: process.env.DB_NAME,
       });
       set('debug', true);
@@ -41,6 +42,7 @@ class Server {
       ],
     }));
     this.express.use(express.json());
+    this.express.use(express.urlencoded({ extended: false }));
     this.express.use(LOGGER('dev'))
   }
 
