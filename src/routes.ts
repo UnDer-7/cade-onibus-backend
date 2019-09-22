@@ -12,7 +12,7 @@ const categoryURLs = '/api/categories';
 const sessionURLs = '/api/session';
 
 // ----Authorization NOT REQUIRED----
-routes.get(`${ userURLs }/update-database`, UserController.updateDatabase);
+// routes.get(`${ userURLs }/update-database`, UserController.updateDatabase);
 
 routes.post(userURLs, UserController.createUser);
 
