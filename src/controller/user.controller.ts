@@ -14,6 +14,9 @@ import { flatten, uniqBy } from 'lodash';
 
 class UserController {
 
+  /**
+   * @deprecated
+   */
   public updateDatabase = async (_req: Request, res: Response): Promise<Response> => {
     try {
       const foundG = await  UserSchema.find();
@@ -113,7 +116,6 @@ class UserController {
 
       userFound.password = user.password;
       const userCreated = await userFound.save();
-      console.log('USER -> \n', userCreated);
       return res.status(200).json(userCreated);
 
     } catch (e) {
@@ -209,7 +211,6 @@ class UserController {
         .select('-password') as User;
 
       const index = userFound.categories.findIndex((item) => item.title === 'Cadê Ônibus Web');
-      console.log('INDEX: ', index);
 
       if (index < 0) {
         return res.status(400).json(Messages.NOT_FOUND);
