@@ -23,6 +23,21 @@ class SessionController {
     }
   };
 
+  public recoveryEmail = async (req: Request, res: Response): Promise<Response> => {
+    const email = req?.body?.email;
+
+    try {
+      const userFound = await UserSchema.exists({ email });
+      if (!userFound) {
+        return res.status(404).json(Messages.NOT_FOUND);
+      }
+      return res.status(200);
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
   public loginWithGoogle = async (req: Request, res: Response): Promise<Response> => {
     const user = ConvertToEntity.convert<User>(req.body);
 
