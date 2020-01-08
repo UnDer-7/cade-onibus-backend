@@ -16,7 +16,6 @@ const sessionURLs = '/api/session';
 
 routes.post(userURLs, UserController.createUser);
 
-// ----Associate
 routes.post(`${userURLs}/associate`, UserController.associateAccount);
 routes.post(`${userURLs}/associate/email`, UserController.associateEmail);
 
@@ -25,7 +24,7 @@ routes.post(userURLs + '/web', UserController.createUserWeb);
 routes.post(`${sessionURLs}/refresh`, SessionController.refreshToken);
 routes.post(`${sessionURLs}/email`, SessionController.loginWithEmail);
 routes.post(`${sessionURLs}/google`, SessionController.loginWithGoogle);
-routes.post(`${sessionURLs}/recovery`, SessionController.recoveryEmail);
+routes.post(`${sessionURLs}/recovery`, SessionController.recoveryPassword);
 
 routes.use(AuthenticationMiddleware.authenticationMiddleware);
 

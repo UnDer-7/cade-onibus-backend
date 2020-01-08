@@ -5,6 +5,7 @@ import UserSchema from '../schema/user.schema';
 import { Messages } from '../util/messages.util';
 import { JWTService } from '../util/jwt.util';
 import { Token } from '../model/token.model';
+import Email from '../util/email.util';
 
 class SessionController {
   public loginWithEmail = async (req: Request, res: Response): Promise<Response> => {
@@ -16,21 +17,29 @@ class SessionController {
         return canLogin
       }
 
-      return res.status(200).json(JWTService.createToken(user))
+      return res.status(200).json(JWTService.createAuthToken(user))
     } catch (e) {
       console.trace(e);
       return res.status(500).json(Messages.UNEXPECTED_ERROR);
     }
   };
 
-  public recoveryEmail = async (req: Request, res: Response): Promise<Response> => {
+  public recoveryPassword = async (req: Request, res: Response): Promise<Response> => {
     const email = req?.body?.email;
 
     try {
-      const userFound = await UserSchema.exists({ email });
+      const userFound = await UserSchema.findOne({ email });
       if (!userFound) {
         return res.status(404).json(Messages.NOT_FOUND);
       }
+      const jwt = JWTService.createForgotPasswordToken(userFound);
+      const emailSender = Email;
+
+      emailSender
+        .senEmail({para: 'mateus7532@gmail.com', assunto: 'Eea, vou testar envio de email no seu email, blz?'})
+        .then(resEmail => console.log('Email enviado com sucesso! - ', resEmail))
+        .catch(err => console.log('Erro ao enviar email! - ', err));
+
       return res.status(200);
     } catch (e) {
       console.trace(e);
@@ -45,7 +54,7 @@ class SessionController {
       const canLogin = await this.canGoogleLogin(user, res);
       if (canLogin) return canLogin;
 
-      return res.status(200).json(JWTService.createToken(user));
+      return res.status(200).json(JWTService.createAuthToken(user));
     } catch (e) {
       console.trace(e);
       return res.status(500).json(Messages.UNEXPECTED_ERROR);
@@ -69,7 +78,7 @@ class SessionController {
         email,
       };
 
-      return res.status(200).json(JWTService.createToken(user));
+      return res.status(200).json(JWTService.createAuthToken(user));
     } catch (e) {
       console.trace(e);
       return res.status(500).json(Messages.UNEXPECTED_ERROR);
