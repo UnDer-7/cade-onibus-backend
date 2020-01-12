@@ -24,7 +24,9 @@ routes.post(userURLs + '/web', UserController.createUserWeb);
 routes.post(`${sessionURLs}/refresh`, SessionController.refreshToken);
 routes.post(`${sessionURLs}/email`, SessionController.loginWithEmail);
 routes.post(`${sessionURLs}/google`, SessionController.loginWithGoogle);
-routes.post(`${sessionURLs}/recovery`, SessionController.recoveryPassword);
+
+routes.post(`${sessionURLs}/recovery`, SessionController.forgotPasswordPassword);
+routes.post(`${sessionURLs}/forgot-password-valid`, SessionController.isForgotPasswordTokenValid);
 
 routes.use(AuthenticationMiddleware.authenticationMiddleware);
 
