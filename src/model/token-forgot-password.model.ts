@@ -4,12 +4,14 @@ export class TokenForgotPassword {
   public readonly payload: PayloadDecoded;
   public readonly iat: Date;
   public readonly exp: Date;
+  public readonly tokenEncoded: string;
 
-  constructor(token: any) {
-    this.iat = new Date(token.iat * 1000);
-    this.exp = new Date(token.exp * 1000);
+  constructor(decoded: any, encoded: string) {
+    this.iat = new Date(decoded.iat * 1000);
+    this.exp = new Date(decoded.exp * 1000);
+    this.tokenEncoded = encoded;
 
-    this.payload = JSON.parse(CryptoUtil.decrypt(token.payload)) as PayloadDecoded;
+    this.payload = JSON.parse(CryptoUtil.decrypt(decoded.payload)) as PayloadDecoded;
   }
 }
 

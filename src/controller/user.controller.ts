@@ -11,6 +11,9 @@ import UserSchema from '../schema/user.schema';
 import { Messages } from '../util/messages.util';
 import { Category, Bus as BusCategory } from '../model/category.model';
 import { flatten, uniqBy } from 'lodash';
+import { JWTService } from '../util/jwt.util';
+import { JsonWebTokenError } from 'jsonwebtoken';
+import { TokenForgotPassword } from '../model/token-forgot-password.model';
 
 class UserController {
 
@@ -67,7 +70,47 @@ class UserController {
     }
   };
 
-  public  associateEmail = async (req: Request, res: Response): Promise<Response> => {
+  public updatePassword = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const newPassword = req.body.password;
+      const token = req.header('forgotPasswordToken');
+
+      if (!token) {
+        return res.status(400).json(Messages.TOKEN_NOT_FOUND)
+      }
+      const decoded = await JWTService.verifyForgotPasswordToken(token);
+      const isTokenValid = JWTService.isForgotPasswordTokenValid(decoded);
+      if (isTokenValid) {
+        return res.status(400).json(isTokenValid)
+      }
+
+      const tokenForgotPassword = new TokenForgotPassword(decoded, token);
+      // @ts-ignore
+      if (tokenForgotPassword.exp <= Date.now()) {
+        return res.status(400).json(Messages.TOKEN_EXPIRED)
+      }
+
+      const user = await UserSchema.findOne({ email: tokenForgotPassword.payload.email }) as User;
+      user.password = await user.encryptPassword(newPassword);
+      await UserSchema.updateOne({ email: user.email }, user);
+
+      return res.status(200).json('');
+    } catch (e) {
+      switch (e instanceof JsonWebTokenError) {
+        case e.message === 'jwt malformed':
+          console.log(e.message);
+          return res.status(400).json(Messages.INVALID_TOKEN);
+        case e.message === 'invalid signature':
+          console.log(e.message);
+          return res.status(400).json(Messages.INVALID_TOKEN);
+        default:
+          console.trace(e);
+          return res.status(500).json(Messages.UNEXPECTED_ERROR);
+      }
+    }
+  }
+
+  public associateEmail = async (req: Request, res: Response): Promise<Response> => {
     const user = ConvertToEntity.convert<User>(req.body);
 
     try {

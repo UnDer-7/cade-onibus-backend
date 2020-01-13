@@ -56,7 +56,7 @@ class SessionController {
         return res.status(400).json(isTokenValid)
       }
 
-      const tokenForgotPassword = new TokenForgotPassword(decoded);
+      const tokenForgotPassword = new TokenForgotPassword(decoded, token);
       // @ts-ignore
       if (tokenForgotPassword.exp <= Date.now()) {
         return res.status(400).json(Messages.TOKEN_EXPIRED)

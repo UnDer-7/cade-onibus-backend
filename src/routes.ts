@@ -18,8 +18,8 @@ routes.post(userURLs, UserController.createUser);
 
 routes.post(`${userURLs}/associate`, UserController.associateAccount);
 routes.post(`${userURLs}/associate/email`, UserController.associateEmail);
-
-routes.post(userURLs + '/web', UserController.createUserWeb);
+routes.post(`${userURLs}/update-password`, UserController.updatePassword);
+routes.post(`${userURLs}/web`, UserController.createUserWeb);
 
 routes.post(`${sessionURLs}/refresh`, SessionController.refreshToken);
 routes.post(`${sessionURLs}/email`, SessionController.loginWithEmail);
