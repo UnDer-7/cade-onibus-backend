@@ -26,6 +26,7 @@ export default abstract class EmailService {
       to,
       subject,
       html,
+      priority: 'high',
     };
 
     return await this.transport.sendMail(options)

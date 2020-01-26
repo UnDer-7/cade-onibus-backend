@@ -47,7 +47,6 @@ export function emailHTL(token: string): string {
                                 Se você não solicitou a alteração de senha, simplesmente ignore este e-mail.
                                 Fique tranquilo, sua conta está segura
                             </p>
-                            <p>Good luck! Hope it works.</p>
                           </td>
                         </tr>
                       </table>
@@ -90,7 +89,7 @@ function header(): string {
     <head>
         <meta name="viewport" content="width=device-width" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Simple Transactional Email</title>
+        <title>Cadê Ônibus</title>
         ${ style() }
     </head>
   `

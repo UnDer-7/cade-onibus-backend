@@ -103,6 +103,8 @@ class UserController {
         case e.message === 'invalid signature':
           console.log(e.message);
           return res.status(400).json(Messages.INVALID_TOKEN);
+        case e.message === 'jwt expired':
+          return res.status(400).json(Messages.TOKEN_EXPIRED);
         default:
           console.trace(e);
           return res.status(500).json(Messages.UNEXPECTED_ERROR);

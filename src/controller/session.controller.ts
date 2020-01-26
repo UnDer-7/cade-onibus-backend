@@ -28,7 +28,6 @@ class SessionController {
 
   public forgotPasswordPassword = async (req: Request, res: Response): Promise<Response> => {
     const email = req?.body?.email;
-
     try {
       const userFound = await UserSchema.findOne({ email });
       if (!userFound) {
@@ -40,7 +39,7 @@ class SessionController {
         .then(resEmail => console.log('Email enviado com sucesso! - ', resEmail))
         .catch(err => console.log('Erro ao enviar email! - ', err));
 
-      return res.status(200);
+      return res.status(200).json('');
     } catch (e) {
       console.trace(e);
       return res.status(500).json(Messages.UNEXPECTED_ERROR);
@@ -71,6 +70,8 @@ class SessionController {
         case e.message === 'invalid signature':
           console.log(e.message);
           return res.status(400).json(Messages.INVALID_TOKEN);
+        case e.message === 'jwt expired':
+          return res.status(400).json(Messages.TOKEN_EXPIRED);
         default:
           console.trace(e);
           return res.status(500).json(Messages.UNEXPECTED_ERROR);
@@ -116,6 +117,8 @@ class SessionController {
           return res.status(400).json(Messages.INVALID_TOKEN);
         case e.message === 'invalid signature':
           return res.status(400).json(Messages.INVALID_TOKEN);
+        case e.message === 'jwt expired':
+          return res.status(400).json(Messages.TOKEN_EXPIRED);
         default:
           console.trace(e);
           return res.status(500).json(Messages.UNEXPECTED_ERROR);
