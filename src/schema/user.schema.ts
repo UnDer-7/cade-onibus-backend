@@ -65,6 +65,10 @@ UserSchema.methods = {
   compareHash(user: User): Promise<boolean> {
     return bcrypt.compare(user.password, this.password)
   },
+
+  async encryptPassword(password: string): Promise<string> {
+    return await bcrypt.hash(password, 8);
+  },
 };
 
 export default model<User>('User', UserSchema);

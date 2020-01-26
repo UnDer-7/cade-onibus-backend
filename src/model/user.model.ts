@@ -10,5 +10,6 @@ export interface User extends Document, Base {
   password?: string;
   bus?: Bus[];
   categories: Category[];
-  compareHash(user: User): Promise<boolean>
+  compareHash(user: User): Promise<boolean>;
+  encryptPassword(user: User): Promise<string>;
 }

@@ -5,6 +5,9 @@ import UserSchema from '../schema/user.schema';
 import { Messages } from '../util/messages.util';
 import { JWTService } from '../util/jwt.util';
 import { Token } from '../model/token.model';
+import ForgotPasswordService from '../service/email/forgot-password.email.service';
+import { JsonWebTokenError } from 'jsonwebtoken';
+import { TokenForgotPassword } from '../model/token-forgot-password.model';
 
 class SessionController {
   public loginWithEmail = async (req: Request, res: Response): Promise<Response> => {
@@ -16,10 +19,63 @@ class SessionController {
         return canLogin
       }
 
-      return res.status(200).json(JWTService.createToken(user))
+      return res.status(200).json(JWTService.createAuthToken(user))
     } catch (e) {
       console.trace(e);
       return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
+  public forgotPasswordPassword = async (req: Request, res: Response): Promise<Response> => {
+    const email = req?.body?.email;
+    try {
+      const userFound = await UserSchema.findOne({ email });
+      if (!userFound) {
+        return res.status(404).json(Messages.NOT_FOUND);
+      }
+      const jwt = JWTService.createForgotPasswordToken(userFound);
+
+      ForgotPasswordService.sendForgotPassword(email, jwt)
+        .then(resEmail => console.log('Email enviado com sucesso! - ', resEmail))
+        .catch(err => console.log('Erro ao enviar email! - ', err));
+
+      return res.status(200).json('');
+    } catch (e) {
+      console.trace(e);
+      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+    }
+  };
+
+  public isForgotPasswordTokenValid = async (req: Request, res: Response): Promise<Response> => {
+    const token = req.body.token;
+    try {
+      const decoded = await JWTService.verifyForgotPasswordToken(token);
+      const isTokenValid = JWTService.isForgotPasswordTokenValid(decoded);
+      if (isTokenValid) {
+        return res.status(400).json(isTokenValid)
+      }
+
+      const tokenForgotPassword = new TokenForgotPassword(decoded, token);
+      // @ts-ignore
+      if (tokenForgotPassword.exp <= Date.now()) {
+        return res.status(400).json(Messages.TOKEN_EXPIRED)
+      }
+
+      return res.status(200).json(tokenForgotPassword)
+    } catch (e) {
+      switch (e instanceof JsonWebTokenError) {
+        case e.message === 'jwt malformed':
+          console.log(e.message);
+          return res.status(400).json(Messages.INVALID_TOKEN);
+        case e.message === 'invalid signature':
+          console.log(e.message);
+          return res.status(400).json(Messages.INVALID_TOKEN);
+        case e.message === 'jwt expired':
+          return res.status(400).json(Messages.TOKEN_EXPIRED);
+        default:
+          console.trace(e);
+          return res.status(500).json(Messages.UNEXPECTED_ERROR);
+      }
     }
   };
 
@@ -30,7 +86,7 @@ class SessionController {
       const canLogin = await this.canGoogleLogin(user, res);
       if (canLogin) return canLogin;
 
-      return res.status(200).json(JWTService.createToken(user));
+      return res.status(200).json(JWTService.createAuthToken(user));
     } catch (e) {
       console.trace(e);
       return res.status(500).json(Messages.UNEXPECTED_ERROR);
@@ -40,8 +96,8 @@ class SessionController {
   public refreshToken = async (req: Request, res: Response): Promise<Response> => {
     const token = req.body.token;
     try {
-      const decoded = await JWTService.verifyToken(token);
-      const isTokenValid = JWTService.isTokenValid(decoded);
+      const decoded = await JWTService.verifyLoginToken(token);
+      const isTokenValid = JWTService.isLoginTokenValid(decoded);
 
       if (isTokenValid) {
         return res.status(401).json(isTokenValid)
@@ -54,10 +110,19 @@ class SessionController {
         email,
       };
 
-      return res.status(200).json(JWTService.createToken(user));
+      return res.status(200).json(JWTService.createAuthToken(user));
     } catch (e) {
-      console.trace(e);
-      return res.status(500).json(Messages.UNEXPECTED_ERROR);
+      switch (e instanceof JsonWebTokenError) {
+        case e.message === 'jwt malformed':
+          return res.status(400).json(Messages.INVALID_TOKEN);
+        case e.message === 'invalid signature':
+          return res.status(400).json(Messages.INVALID_TOKEN);
+        case e.message === 'jwt expired':
+          return res.status(400).json(Messages.TOKEN_EXPIRED);
+        default:
+          console.trace(e);
+          return res.status(500).json(Messages.UNEXPECTED_ERROR);
+      }
     }
   };
 
