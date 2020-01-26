@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { Messages } from '../util/messages.util';
 import { JWTService } from '../util/jwt.util';
+import { JsonWebTokenError } from 'jsonwebtoken';
 
 class AuthenticationMiddleware {
   public authenticationMiddleware =
@@ -15,8 +16,8 @@ class AuthenticationMiddleware {
       const token = headers!.split(' ')[1];
 
       try {
-        const decoded = await JWTService.verifyToken(token);
-        const isTokenValid = JWTService.isTokenValid(decoded);
+        const decoded = await JWTService.verifyLoginToken(token);
+        const isTokenValid = JWTService.isLoginTokenValid(decoded);
 
         if (isTokenValid) {
           return res.status(401).json(isTokenValid)
@@ -27,8 +28,15 @@ class AuthenticationMiddleware {
 
         return next()
       } catch (e) {
-        console.trace(e);
-        res.status(500).json(Messages.UNEXPECTED_ERROR);
+        switch (e instanceof JsonWebTokenError) {
+          case e.message === 'jwt malformed':
+            return res.status(400).json(Messages.INVALID_TOKEN);
+          case e.message === 'invalid signature':
+            return res.status(400).json(Messages.INVALID_TOKEN);
+          default:
+            console.trace(e);
+            return res.status(500).json(Messages.UNEXPECTED_ERROR);
+        }
       }
     };
 

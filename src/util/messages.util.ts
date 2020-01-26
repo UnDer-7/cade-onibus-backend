@@ -46,4 +46,9 @@ export class Messages {
    * unable-to-assign-interface
    */
   public static readonly ASSIGN_ERROR: string = 'unable-to-assign-interface';
+
+  /**
+   * token-is-expired
+   */
+  public static readonly TOKEN_EXPIRED: string = 'token-is-expired';
 }
