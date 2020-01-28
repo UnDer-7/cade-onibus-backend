@@ -35,7 +35,7 @@ export function emailHTL(token: string): string {
                                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                     <tbody>
                                     <tr>
-                                      <td> <a href=http://localhost:4200/forgot-password?token=${token}>Trocar Senha</a> </td>
+                                      <td> <a href="https://cadeonibus.web.app/forgot-password?token=${token}">Trocar Senha</a> </td>
                                     </tr>
                                     </tbody>
                                   </table>
@@ -62,7 +62,9 @@ export function emailHTL(token: string): string {
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td class="content-block">
-                        <span class="apple-link">Cadê Ônibus</span>
+                        <span class="apple-link">
+                            <a href="https://cadeonibus.web.app">Cadê Ônibus</a>
+                        </span>
                       </td>
                     </tr>
                     <tr>
