@@ -1,10 +1,26 @@
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
-# DEPRECATED
-⛔️ DEPRECATED new version of Cadê Ônibus can be found here ->
+# ⛔️ DEPRECATED
+Use the lateast version of Cadê Ônibus
+<br />*
+<br />*
+<br />*
+<br />*
+<br />*
+<br />*
+<br />*
+<br />*
+<br />*
+<br />*
+<br />*
+<br />
+[![Build Status](https://travis-ci.com/UnDer-7/cade-onibus-backend.svg?branch=master)](https://travis-ci.com/UnDer-7/cade-onibus-backend)
+[![Known Vulnerabilities](https://snyk.io/test/github/UnDer-7/cade-onibus-backend-playstore/badge.svg)](https://snyk.io/test/github/UnDer-7/cade-onibus-backend-playstore)
 
-## Frontend: https://github.com/UnDer-7/cade-onibus-frontend-playstore
+# cade-onibus-backend
+## PWA -> https://cadeonibus.web.app
+## App -> https://play.google.com/store/apps/details?id=com.cade.cade_onibus_mobile
 
-## Backend: https://github.com/UnDer-7/cade-onibus-backend-playstore
+Backend for the Cadê Ônibus project.
 
-I made a new version because I wasn't happy with the project and it was easier to make a new one
+It's a project made to track Brasília's buses (capital of Brazil)
