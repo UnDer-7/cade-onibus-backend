@@ -1,0 +1,88 @@
+{
+  "name": "cade-onibus-backend",
+  "version": "2.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "debug": "tsc && node --inspect=9090 dist/index.js",
+    "start-local": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
+    "build": "tsc",
+    "lint": "tslint src/**/*.ts",
+    "test-modules": "snyk test --severity-threshold=medium",
+    "snyk-protect": "snyk protect",
+    "snyk-wizard": "snyk wizard",
+    "prepare": "npm run snyk-protect"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "cors": "^2.8.5",
+    "cryptr": "^6.0.1",
+    "dotenv": "^7.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash-es": "^4.17.15",
+    "mongoose": "^5.8.9",
+    "morgan": "^1.9.1",
+    "nodemailer": "^6.4.2",
+    "reflect-metadata": "^0.1.13",
+    "snyk": "^1.278.2",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/cors": "^2.8.6",
+    "@types/cryptr": "^4.0.0",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.2",
+    "@types/helmet": "0.0.43",
+    "@types/jsonwebtoken": "^8.3.7",
+    "@types/lodash-es": "^4.17.3",
+    "@types/mongoose": "^5.5.43",
+    "@types/morgan": "^1.7.37",
+    "@types/node": "^11.15.4",
+    "@types/nodemailer": "^6.4.0",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.5"
+  },
+  "engines": {
+    "node": "12.4.0"
+  },
+  "author": {
+    "name": "Mateus Gomes da Silva Cardos",
+    "url": "https://www.linkedin.com/in/mateus-gomes-da-silva-cardoso/",
+    "email": "mateus7532@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UnDer-7/cade-onibus-backend-playstore"
+  },
+  "bugs": {
+    "url": "https://github.com/UnDer-7/cade-onibus-backend-playstore/issues",
+    "email": "mateus7532@gmail.com"
+  },
+  "description": "Backend para o app Cadê Ônibus, um rastreador de ônibus brasilienses",
+  "keywords": [
+    "UnDer-7",
+    "Mateus Gomes",
+    "Brasilia",
+    "DF",
+    "Distrito Federal",
+    "Sobradinho",
+    "Sobradinho II",
+    "Sobradinho 2",
+    "Onibus",
+    "Bus",
+    "DFTrans",
+    "DF-Trans",
+    "DF Trans",
+    "Google Maps",
+    "Maps",
+    "Mapa",
+    "Ionic",
+    "Ionic 4",
+    "Angular"
+  ],
+  "snyk": true
+}

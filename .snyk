@@ -1,0 +1,45 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:bcrypt':
+    - '*':
+        reason: Only Timing Attack - Low
+        expires: 2019-06-10T00:00:00.000Z
+  SNYK-JS-LODASH-450202:
+    - snyk > lodash:
+        reason: no solution available
+        expires: '2019-08-08T23:21:19.216Z'
+    - snyk > @snyk/dep-graph > lodash:
+        reason: no solution available
+        expires: '2019-08-08T23:21:19.216Z'
+    - snyk > inquirer > lodash:
+        reason: None given
+        expires: '2019-08-08T23:21:19.216Z'
+    - snyk > snyk-config > lodash:
+        reason: None given
+        expires: '2019-08-08T23:21:19.216Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        reason: None given
+        expires: '2019-08-08T23:21:19.216Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        reason: None given
+        expires: '2019-08-08T23:21:19.216Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        reason: None given
+        expires: '2019-08-08T23:21:19.216Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        reason: None given
+        expires: '2019-08-08T23:21:19.216Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        reason: None given
+        expires: '2019-08-08T23:21:19.217Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - mongoose > async > lodash:
+        patched: '2019-07-09T23:13:16.282Z'
+      snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-09T23:20:11.822Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-09T23:20:11.822Z'
