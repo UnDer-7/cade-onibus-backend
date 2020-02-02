@@ -14,7 +14,7 @@ script:
   - npm run build
 deploy:
   - provider: heroku
-    app: cade-onibus-prod
+    app: cade-onibus-playstore-prod
     api_key: $HEROKU_TOKEN
     skip_cleanup: true
     local_dir: dist/
