@@ -7,3 +7,24 @@
 Backend for the Cadê Ônibus project.
 
 It's a project made to track Brasília's buses (capital of Brazil)
+
+#Environment Variable
+APP_SECRET
+
+APP_URL
+
+DB_NAME
+
+DB_URL
+
+EMAIL_PASSWORD
+
+EMAIL_USER
+
+ENCRYPT_SECRET
+
+FORGOT_PASSWORD_SECRET
+
+NODE_ENV
+
+PORT
