@@ -7,21 +7,28 @@ cache:
 branches:
   only:
   - master
+  - dev
 script:
   - npm run test-modules
   - npm run lint
   - npm run build
 deploy:
-  provider: heroku
-  app:
-    production: cade-onibus-prod
-    master: cade-onibus-dev
-  api_key: $HEROKU_TOKEN
-  skip_cleanup: true
-  local_dir: dist/
-  on:
-    repo: UnDer-7/cade-onibus-backend
-    branch: master
+  - provider: heroku
+    app: cade-onibus-prod
+    api_key: $HEROKU_TOKEN
+    skip_cleanup: true
+    local_dir: dist/
+    on:
+      repo: UnDer-7/cade-onibus-backend
+      branch: master
+  - provider: heroku
+    app: cade-onibus-dev
+    api_key: $HEROKU_TOKEN
+    skip_cleanup: true
+    local_dir: dist/
+    on:
+      repo: UnDer-7/cade-onibus-backend
+      branch: dev
 after_deploy:
   - snyk monitor
 notifications:
