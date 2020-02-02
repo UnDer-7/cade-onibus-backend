@@ -14,8 +14,8 @@ script:
 deploy:
   provider: heroku
   app:
-    prod: cade-onibus-prod
-    dev: cade-onibus-dev
+    production: cade-onibus-prod
+    master: cade-onibus-dev
   api_key: $HEROKU_TOKEN
   skip_cleanup: true
   local_dir: dist/
