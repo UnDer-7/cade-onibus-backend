@@ -10,8 +10,6 @@ export default abstract class EmailService {
                           emailPassword,
                           service = 'gmail',
   }: emailServiceOptions) {
-    console.log('------------ emailUser: ', emailUser);
-    console.log('------------ emailPassword: ', emailPassword);
     this.transport = createTransport({
       service,
       auth: {

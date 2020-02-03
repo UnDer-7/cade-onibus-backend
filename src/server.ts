@@ -16,6 +16,19 @@ class Server {
     this.routes();
   }
 
+  public get origins(): string[] {
+    const isDev = process.env.NODE_ENV === 'development';
+    if (isDev) {
+      return [
+        'http://localhost:4200',
+        'http://localhost:3000',
+        'https://cadeonibus.web.app',
+      ];
+    }
+
+    return ['https://cadeonibus.web.app'];
+  }
+
   private async database(): Promise<void> {
     try {
       // @ts-ignore
@@ -36,10 +49,7 @@ class Server {
   private middleware(): void {
     this.express.use(helmet());
     this.express.use(cors({
-      origin: [
-        'http://localhost:4200',
-        'https://cadeonibus.web.app',
-      ],
+      origin: this.origins,
     }));
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: false }));
@@ -51,4 +61,4 @@ class Server {
   }
 }
 
-export default new Server().express;
+export default new Server();
