@@ -18,15 +18,17 @@ class Server {
 
   public get origins(): string[] {
     const isDev = process.env.NODE_ENV === 'development';
+    const prodURL = ['https://cadeonibus.web.app', 'https://cadeonibus.com.br'];
+
     if (isDev) {
       return [
         'http://localhost:4200',
         'http://localhost:3000',
-        'https://cadeonibus.web.app',
+        ...prodURL,
       ];
     }
 
-    return ['https://cadeonibus.web.app'];
+    return prodURL;
   }
 
   private async database(): Promise<void> {
