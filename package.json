@@ -47,7 +47,7 @@
     "typescript": "^3.7.5"
   },
   "engines": {
-    "node": "12.4.0"
+    "node": "12.9.1"
   },
   "author": {
     "name": "Mateus Gomes da Silva Cardos",
