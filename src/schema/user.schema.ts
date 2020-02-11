@@ -20,7 +20,7 @@ const UserSchema: Schema = new Schema({
   password: {
     type: String,
     trim: true,
-    minlength: [5, 'Minimum 5 characters'],
+    minlength: [3, 'Minimum 3 characters'],
   },
   bus: {
     type: [Object],
