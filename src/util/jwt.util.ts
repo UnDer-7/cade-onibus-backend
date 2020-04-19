@@ -16,7 +16,7 @@ export class JWTService {
 
     // @ts-ignore
     return jwt.sign(payload, process.env.APP_SECRET, {
-      expiresIn: '20 days', algorithm: 'HS512',
+      expiresIn: '30 days', algorithm: 'HS512',
     })
   }
 
