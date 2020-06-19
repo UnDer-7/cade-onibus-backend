@@ -35,12 +35,11 @@ class SessionController {
       }
       const jwt = JWTService.createForgotPasswordToken(userFound);
 
-      ForgotPasswordService.sendForgotPassword(email, jwt)
-        .then(resEmail => console.log('Email enviado com sucesso! - ', resEmail))
-        .catch(err => console.log('Erro ao enviar email! - ', err));
-
+      const successRes = await ForgotPasswordService.sendForgotPassword(email, jwt);
+      console.log('Email enviado com sucesso! - ', successRes);
       return res.status(200).json('');
     } catch (e) {
+      console.log('Erro ao eviar o email! - ', e);
       console.trace(e);
       return res.status(500).json(Messages.UNEXPECTED_ERROR);
     }

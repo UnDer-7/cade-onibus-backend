@@ -37,7 +37,7 @@ export function emailHTL(token: string): string {
                                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                     <tbody>
                                     <tr>
-                                      <td> <a href="${appURL}/forgot-password?token=${token}">Trocar Senha</a> </td>
+                                      <td> <a href="${appURL}/auth/forgot-password?token=${token}">Trocar Senha</a> </td>
                                     </tr>
                                     </tbody>
                                   </table>
