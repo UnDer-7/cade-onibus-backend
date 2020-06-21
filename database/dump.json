@@ -1,0 +1,343 @@
+[
+  {
+    "_id": {
+      "$oid": "5cd4fbc78bdc5400172a1e88"
+    },
+    "__v": 0,
+    "bus": [
+      {
+        "sequencial": 11458,
+        "numero": "501.4",
+        "descricao": "Sobradinho I e II (Setor Oeste) / Eixo Norte - Sul",
+        "sentido": "VOLTA",
+        "faixaTarifaria": {
+          "sequencial": 4,
+          "descricao": "METROPOLITANA 2",
+          "tarifa": 5
+        },
+        "ativa": true,
+        "bacia": {
+          "sequencial": 1,
+          "descricao": "Norte"
+        },
+        "tipoLinha": "R",
+        "operadoras": null,
+        "tiposOnibus": null
+      },
+      {
+        "sequencial": 11451,
+        "numero": "501.3",
+        "descricao": "Sobradinho II (Setor Oeste) / Eixo Norte-Sul",
+        "sentido": "IDA",
+        "faixaTarifaria": {
+          "sequencial": 4,
+          "descricao": "METROPOLITANA 2",
+          "tarifa": 5
+        },
+        "ativa": true,
+        "bacia": {
+          "sequencial": 1,
+          "descricao": "Norte"
+        },
+        "tipoLinha": "R",
+        "operadoras": null,
+        "tiposOnibus": null
+      },
+      {
+        "sequencial": 11397,
+        "numero": "0.517",
+        "descricao": "Sobradinho II / W3 Norte - Sul (DF-150)",
+        "sentido": "VOLTA",
+        "faixaTarifaria": {
+          "sequencial": 4,
+          "descricao": "METROPOLITANA 2",
+          "tarifa": 5
+        },
+        "ativa": true,
+        "bacia": {
+          "sequencial": 1,
+          "descricao": "Norte"
+        },
+        "tipoLinha": "R",
+        "operadoras": null,
+        "tiposOnibus": null
+      }
+    ],
+    "categories": [
+      {
+        "buses": [
+          {
+            "numero": "0.517",
+            "descricao": "Sobradinho II / W3 Norte - Sul (DF-150)",
+            "tarifa": 5
+          },
+          {
+            "numero": "512.1",
+            "descricao": "Sobradinho / W3 Norte - Sul 1",
+            "tarifa": 5
+          },
+          {
+            "numero": "0.513",
+            "descricao": "Sobradinho (Quadra 18) / W3 Norte - Sul",
+            "tarifa": 5
+          },
+          {
+            "numero": "505.3",
+            "descricao": "Sobradinho I - II / (Rua 6) / Contagem",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "062.7",
+            "descricao": "Sobradinho I - II (RUA 05 - 06) / DNOCS / Vila Rabelo",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "505.5",
+            "descricao": "Condomínio Uberaba / Nova Dignéia /  Sobradinho I - II (Rua 4 - 6) / Morro do Sansão",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "505.8",
+            "descricao": "Circular Sobradinho I - II (Ruas 4 - 6) / Grande Colorado",
+            "tarifa": 2.5
+          }
+        ],
+        "uuid": "d3595740-dc9b-11e9-a0e9-9d18b415aae8",
+        "title": "Todos",
+        "cardColor": 4285547775
+      },
+      {
+        "buses": [
+          {
+            "numero": "0.517",
+            "descricao": "Sobradinho II / W3 Norte - Sul (DF-150)",
+            "tarifa": 5
+          },
+          {
+            "numero": "512.1",
+            "descricao": "Sobradinho / W3 Norte - Sul 1",
+            "tarifa": 5
+          },
+          {
+            "numero": "0.513",
+            "descricao": "Sobradinho (Quadra 18) / W3 Norte - Sul",
+            "tarifa": 5
+          }
+        ],
+        "uuid": "7bf2e390-de7b-11e9-b65b-afdea3aafda0",
+        "title": "Work",
+        "cardColor": 4294198070
+      },
+      {
+        "buses": [
+          {
+            "numero": "505.3",
+            "descricao": "Sobradinho I - II / (Rua 6) / Contagem",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "062.7",
+            "descricao": "Sobradinho I - II (RUA 05 - 06) / DNOCS / Vila Rabelo",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "505.5",
+            "descricao": "Condomínio Uberaba / Nova Dignéia /  Sobradinho I - II (Rua 4 - 6) / Morro do Sansão",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "505.8",
+            "descricao": "Circular Sobradinho I - II (Ruas 4 - 6) / Grande Colorado",
+            "tarifa": 2.5
+          }
+        ],
+        "uuid": "e8d34000-debb-11e9-b65b-afdea3aafda0",
+        "title": "Cadê Ônibus Web",
+        "cardColor": 4294961979
+      }
+    ],
+    "createdAt": {
+      "$date": "2019-05-10T04:18:16.809Z"
+    },
+    "email": "admin@admin.com",
+    "google_id": "107381286486333839765",
+    "name": "ADMIN",
+    "password": "$2b$08$sFMX1ieLAaIQHYyuiKaAUeGIVcdIiqTVp1WCCiK6KOQDhOxw6n4OS"
+  },
+  {
+    "_id": {
+      "$oid": "5dbd6d697e1474001796be3d"
+    },
+    "__v": 0,
+    "bus": [],
+    "categories": [
+      {
+        "buses": [
+          {
+            "numero": "3307",
+            "descricao": "Terminal de Integração de Santa Maria / Expansão / Total Ville",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "3306",
+            "descricao": "Total Ville / Terminal de Integração Santa Maria",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "3303",
+            "descricao": "Terminal Integração  / Expansão / Vila D.V.O. / Terminal Integração",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "3301",
+            "descricao": "Terminal 124 / Condimínio Porto Rico / Avenida Santa Maria (300 / 400)",
+            "tarifa": 2.5
+          }
+        ],
+        "uuid": "e6bc6a70-fd66-11e9-b75f-e5af4464dbec",
+        "title": "Todos",
+        "cardColor": 4285547775
+      },
+      {
+        "buses": [
+          {
+            "numero": "3307",
+            "descricao": "Terminal de Integração de Santa Maria / Expansão / Total Ville",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "3306",
+            "descricao": "Total Ville / Terminal de Integração Santa Maria",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "3303",
+            "descricao": "Terminal Integração  / Expansão / Vila D.V.O. / Terminal Integração",
+            "tarifa": 2.5
+          },
+          {
+            "numero": "3301",
+            "descricao": "Terminal 124 / Condimínio Porto Rico / Avenida Santa Maria (300 / 400)",
+            "tarifa": 2.5
+          }
+        ],
+        "uuid": "459aa6a0-fd68-11e9-b75f-e5af4464dbec",
+        "title": "Casa X Escola",
+        "cardColor": 4278238420
+      }
+    ],
+    "createdAt": {
+      "$date": "2019-11-02T03:02:15.049Z"
+    },
+    "email": "tst1@tst.tst",
+    "password": "$2b$08$sFMX1ieLAaIQHYyuiKaAUeGIVcdIiqTVp1WCCiK6KOQDhOxw6n4OS"
+  },
+  {
+    "_id": {
+      "$oid": "5dc16638d60c2c0017e666c8"
+    },
+    "__v": 0,
+    "bus": [],
+    "categories": [
+      {
+        "buses": [],
+        "uuid": "f7c18ac0-ffc4-11e9-8871-e3349662f3c2",
+        "title": "Todos",
+        "cardColor": 4285547775
+      }
+    ],
+    "createdAt": {
+      "$date": "2019-11-05T04:08:38.642Z"
+    },
+    "email": "tst2@tst.tst",
+    "google_id": "116658020772837779271",
+    "name": "Usuario 2"
+  },
+  {
+    "_id": {
+      "$oid": "5dc2baaaaa61c1001773a177"
+    },
+    "__v": 0,
+    "bus": [],
+    "categories": [
+      {
+        "buses": [
+          {
+            "numero": "0.159",
+            "descricao": "Cidade Estrutural (EPTG) / Setor Habitacional Sol Nascente Trecho 1 (Condomínio dos Pinheiros)",
+            "tarifa": 3.5
+          }
+        ],
+        "uuid": "e377e430-008f-11ea-92b5-d15d149c5450",
+        "title": "Todos",
+        "cardColor": 4285547775
+      },
+      {
+        "buses": [
+          {
+            "numero": "0.159",
+            "descricao": "Cidade Estrutural (EPTG) / Setor Habitacional Sol Nascente Trecho 1 (Condomínio dos Pinheiros)",
+            "tarifa": 3.5
+          }
+        ],
+        "uuid": "3ac82fb0-0090-11ea-92b5-d15d149c5450",
+        "title": "Taguatinga",
+        "cardColor": 4293467747
+      }
+    ],
+    "createdAt": {
+      "$date": "2019-11-06T04:36:16.270Z"
+    },
+    "email": "tst3@tst.tst",
+    "password": "$2b$08$sFMX1ieLAaIQHYyuiKaAUeGIVcdIiqTVp1WCCiK6KOQDhOxw6n4OS"
+  },
+  {
+    "_id": {
+      "$oid": "5dd0a96cac8d2000175190fe"
+    },
+    "__v": 0,
+    "bus": [],
+    "categories": [
+      {
+        "buses": [
+          {
+            "numero": "933.5",
+            "descricao": "Terminal P Sul / Sol Nascente / Taguatinga Centro",
+            "tarifa": 3.5
+          },
+          {
+            "numero": "364.2",
+            "descricao": "Setor M Norte / Ceilândia Centro / Condomínio Casa Branca / Condomínio Novo Horizonte",
+            "tarifa": 2.5
+          }
+        ],
+        "uuid": "d784f130-08dd-11ea-9428-c38d7a690f99",
+        "title": "Todos",
+        "cardColor": 4285547775
+      },
+      {
+        "buses": [
+          {
+            "numero": "933.5",
+            "descricao": "Terminal P Sul / Sol Nascente / Taguatinga Centro",
+            "tarifa": 3.5
+          },
+          {
+            "numero": "364.2",
+            "descricao": "Setor M Norte / Ceilândia Centro / Condomínio Casa Branca / Condomínio Novo Horizonte",
+            "tarifa": 2.5
+          }
+        ],
+        "uuid": "f686b780-08dd-11ea-9428-c38d7a690f99",
+        "title": "Casa",
+        "cardColor": 4288423856
+      }
+    ],
+    "createdAt": {
+      "$date": "2019-11-16T02:42:09.417Z"
+    },
+    "email": "tst4@tst.tst",
+    "google_id": "101286483376914993569",
+    "name": "Usuario 4"
+  }
+]
